@@ -1,0 +1,23 @@
+#asignación
+int numero1 = 10;
+double numero2 = 10.5;
+
+num numero3 = 20;
+num numero4 = 10.51;
+
+bool booleano1 = true;
+bool booleano2 = false;
+
+String palabra = "Hola Mundo";
+
+String concatenar1 = "Hola " + "Mundo";
+
+var variable1 = "Este es un String!";
+var variable2 = 12412;
+var variable3 = 13.24;
+var variable4 = true;
+
+dynamic valor = 20;
+valor = "Ja, ahora soy un String";
+valor = 3.1416;
+valor = false;
