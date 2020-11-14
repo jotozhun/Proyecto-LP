@@ -17,6 +17,13 @@ tokens = [
     'MORETHAN',
     'ASSIGN',
     'ID',
+    'LDQMARK',
+    'RDQMARK',
+    'SQMARK',
+    'GQUAL',
+    'LQUAL'
+
+
 ]
 
 reserved = {
@@ -35,7 +42,9 @@ reserved = {
     'while':'WHILE',
     'List':'LIST',
     'Map':'MAP',
-    'Set':'SET'
+    'Set':'SET',
+    'print':'PRINT',
+    'new':'NEW'
 }
 
 tokens += list(reserved.values())
@@ -54,6 +63,15 @@ t_LESSTHAN = r'<'
 t_MORETHAN = r'>'
 t_COMMA = r','
 t_SEMICOLON = r';'
+t_LDQMARK = r'\“'
+t_RDQMARK = r'\”'
+
+t_GQUAL = r'\>\='
+t_LQUAL = r'\<\='
+
+
+
+
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
@@ -77,6 +95,9 @@ def t_newline(t):
 def t_COMMENT(t):
     r'\#.*'
     pass
+
+
+
 
 t_ignore = ' \t'
 

@@ -11,6 +11,7 @@ bool booleano2 = false;
 String palabra = "Hola Mundo";
 
 String concatenar1 = "Hola " + "Mundo";
+String concatenar2 = "Hola " "Mundo";
 
 var variable1 = "Este es un String!";
 var variable2 = 12412;
@@ -21,3 +22,16 @@ dynamic valor = 20;
 valor = "Ja, ahora soy un String";
 valor = 3.1416;
 valor = false;
+
+print("Hola");
+print(valor);
+Set conjunto=new Set();
+List<String> lista;
+Map<String,int> mapa={“item1”,10};
+
+if(valor>=5){
+  valor=0;
+}
+if(valor<=2){
+  valor=1;
+}
