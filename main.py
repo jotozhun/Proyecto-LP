@@ -21,7 +21,9 @@ tokens = [
     'RDQMARK',
     'SQMARK',
     'GQUAL',
-    'LQUAL'
+    'LQUAL',
+    'EQUALS',
+    'NOTEQUALS'
 
 
 ]
@@ -68,6 +70,8 @@ t_RDQMARK = r'\”'
 
 t_GQUAL = r'\>\='
 t_LQUAL = r'\<\='
+t_EQUALS = r'\=\='
+t_NOTEQUALS = r'\!\='
 
 
 

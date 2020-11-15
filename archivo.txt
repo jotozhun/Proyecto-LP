@@ -35,3 +35,24 @@ if(valor>=5){
 if(valor<=2){
   valor=1;
 }
+
+int x = 5;
+int y = 4;
+int z = 5;
+print(x==z);
+print(y!=z);
+
+String item1 = "Manzana";
+String item2 = "Pera";
+
+#Listas
+List<String> lista;
+lista.add(“item1”);
+lista.add(“item2”);
+
+#Mapas
+Map<String,int> mapa={“item1”,10};
+
+#Sets
+Set conjunto= new Set ();
+conjunto.add(“item2”);
