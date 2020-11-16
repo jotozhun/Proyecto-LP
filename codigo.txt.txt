@@ -1,0 +1,70 @@
+#Esta parte es de Joel Torres
+
+#asignación
+int numero1 = 10;
+double numero2 = 10.5;
+
+num numero3 = 20;
+num numero4 = 10.51;
+
+bool booleano1 = true;
+bool booleano2 = false;
+
+String palabra = "Hola Mundo";
+
+String concatenar1 = "Hola " + "Mundo";
+String concatenar2 = "Hola " "Mundo";
+
+var variable1 = "Este es un String!";
+var variable2 = 12412;
+var variable3 = 13.24;
+var variable4 = true;
+
+dynamic valor = 20;
+valor = "Ja, ahora soy un String";
+valor = 3.1416;
+valor = false;
+
+
+
+
+#Esto es de Andres Morales
+print("Hola");
+print(valor);
+Set conjunto=new Set();
+List<String> lista;
+Map<String,int> mapa={“item1”,10};
+
+if(valor>=5){
+  valor=0;
+}
+if(valor<=2){
+  valor=1;
+}
+
+
+
+
+
+#Eso de Ronny Andrade
+
+int x = 5;
+int y = 4;
+int z = 5;
+print(x==z);
+print(y!=z);
+
+String item1 = "Manzana";
+String item2 = "Pera";
+
+#Listas
+List<String> lista;
+lista.add(“item1”);
+lista.add(“item2”);
+
+#Mapas
+Map<String,int> mapa={“item1”,10};
+
+#Sets
+Set conjunto= new Set ();
+conjunto.add(“item2”);

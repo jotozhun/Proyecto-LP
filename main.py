@@ -100,9 +100,6 @@ def t_COMMENT(t):
     r'\#.*'
     pass
 
-
-
-
 t_ignore = ' \t'
 
 def t_error(t):
@@ -111,7 +108,7 @@ def t_error(t):
 
 lexer = lex.lex()
 
-file = open("archivo.txt")
+file = open("archivo.txt", encoding="utf8")
 
 for line in file:
     lexer.input(line)
