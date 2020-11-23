@@ -1,4 +1,5 @@
 import ply.lex as lex
+import ply.yacc as yacc
 
 tokens = [
     'STRINGVAL',
@@ -8,6 +9,7 @@ tokens = [
     'TIMES',
     'DIVIDE',
     'COMMA',
+    'PUNTO',
     'SEMICOLON',
     'LPAREN',
     'RPAREN',
@@ -43,10 +45,12 @@ reserved = {
     'for':'FOR',
     'while':'WHILE',
     'List':'LIST',
+    'add':'ADD',
     'Map':'MAP',
     'Set':'SET',
     'print':'PRINT',
     'new':'NEW'
+
 }
 
 tokens += list(reserved.values())
@@ -54,7 +58,7 @@ tokens += list(reserved.values())
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
-t_DIVIDE = r'/'
+t_DIVIDE = r'\/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 #t_STRINGVAL = r'(^\'[^\']*\'$|^\"[^\']*\"$)'
@@ -72,8 +76,7 @@ t_GQUAL = r'\>\='
 t_LQUAL = r'\<\='
 t_EQUALS = r'\=\='
 t_NOTEQUALS = r'\!\='
-
-
+t_PUNTO = r'\.'
 
 
 
@@ -117,3 +120,5 @@ for line in file:
         if not tok:
             break  # No more input
         print(tok)
+
+#Analizador Sintactico.................................................

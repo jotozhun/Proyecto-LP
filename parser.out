@@ -1,0 +1,167 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ADD
+    BOOL
+    COMMA
+    ELSE
+    EQUALS
+    FALSE
+    FOR
+    GQUAL
+    IF
+    LBRACE
+    LDQMARK
+    LESSTHAN
+    LIST
+    LPAREN
+    LQUAL
+    MAP
+    MORETHAN
+    NEW
+    NOTEQUALS
+    PRINT
+    PUNTO
+    RBRACE
+    RDQMARK
+    RPAREN
+    SET
+    SQMARK
+    TRUE
+    WHILE
+
+Grammar
+
+Rule 0     S' -> declarNum
+Rule 1     declarNum -> NUM
+Rule 2     declarNum -> INT
+Rule 3     declarNum -> DOUBLE
+Rule 4     declarNum -> VAR
+Rule 5     declarNum -> DYNAMIC
+Rule 6     resultado -> declarNum STRINGVAL ASSIGN NUMBER SEMICOLON
+Rule 7     valor -> NUMBER
+Rule 8     valor -> ID
+Rule 9     resultado -> valor PLUS valor SEMICOLON
+Rule 10    resultado -> valor MINUS valor SEMICOLON
+Rule 11    resultado -> valor TIMES valor SEMICOLON
+Rule 12    resultado -> valor DIVIDE valor SEMICOLON
+Rule 13    string -> declarar STRINGVAL SEMICOLON
+Rule 14    declarar -> VAR
+Rule 15    declarar -> STRING
+Rule 16    declarar -> DYNAMIC
+
+Terminals, with rules where they appear
+
+ADD                  : 
+ASSIGN               : 6
+BOOL                 : 
+COMMA                : 
+DIVIDE               : 12
+DOUBLE               : 3
+DYNAMIC              : 5 16
+ELSE                 : 
+EQUALS               : 
+FALSE                : 
+FOR                  : 
+GQUAL                : 
+ID                   : 8
+IF                   : 
+INT                  : 2
+LBRACE               : 
+LDQMARK              : 
+LESSTHAN             : 
+LIST                 : 
+LPAREN               : 
+LQUAL                : 
+MAP                  : 
+MINUS                : 10
+MORETHAN             : 
+NEW                  : 
+NOTEQUALS            : 
+NUM                  : 1
+NUMBER               : 6 7
+PLUS                 : 9
+PRINT                : 
+PUNTO                : 
+RBRACE               : 
+RDQMARK              : 
+RPAREN               : 
+SEMICOLON            : 6 9 10 11 12 13
+SET                  : 
+SQMARK               : 
+STRING               : 15
+STRINGVAL            : 6 13
+TIMES                : 11
+TRUE                 : 
+VAR                  : 4 14
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+declarNum            : 6 0
+declarar             : 13
+resultado            : 
+string               : 
+valor                : 9 9 10 10 11 11 12 12
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . declarNum
+    (1) declarNum -> . NUM
+    (2) declarNum -> . INT
+    (3) declarNum -> . DOUBLE
+    (4) declarNum -> . VAR
+    (5) declarNum -> . DYNAMIC
+
+    NUM             shift and go to state 2
+    INT             shift and go to state 3
+    DOUBLE          shift and go to state 4
+    VAR             shift and go to state 5
+    DYNAMIC         shift and go to state 6
+
+    declarNum                      shift and go to state 1
+
+state 1
+
+    (0) S' -> declarNum .
+
+
+
+state 2
+
+    (1) declarNum -> NUM .
+
+    $end            reduce using rule 1 (declarNum -> NUM .)
+
+
+state 3
+
+    (2) declarNum -> INT .
+
+    $end            reduce using rule 2 (declarNum -> INT .)
+
+
+state 4
+
+    (3) declarNum -> DOUBLE .
+
+    $end            reduce using rule 3 (declarNum -> DOUBLE .)
+
+
+state 5
+
+    (4) declarNum -> VAR .
+
+    $end            reduce using rule 4 (declarNum -> VAR .)
+
+
+state 6
+
+    (5) declarNum -> DYNAMIC .
+
+    $end            reduce using rule 5 (declarNum -> DYNAMIC .)
+
