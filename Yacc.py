@@ -119,3 +119,11 @@ while True:
     if not s: continue
     result = parser.parse(s)
     print(result)
+
+
+f=open("algoritmo.txt")
+s = f.read()
+print(s)
+result = parser.parse(s)
+print(result)
+f.close()
