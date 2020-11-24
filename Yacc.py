@@ -45,7 +45,62 @@ def p_asignacionSet(p):
 def p_asignacionMap(p):
     '''asignacionMap : MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON'''
 
+def p_asignacionBoolean(p):
+    '''asignacionBoolean : BOOL ID ASSIGN expresionBoolean SEMICOLON'''
 
+def p_asignacionNumerica(p):
+    'asignacionNumerica : tipoNumeric ID ASSIGN expresion SEMICOLON'
+
+def p_asignacionString(p):
+    'asignacionString : tipoString ID ASSIGN expresionString SEMICOLON'
+
+def p_expresion(p):
+    '''expresion : valor'''
+
+def p_expresionString(p):
+    '''expresionString : STRINGVAL'''
+
+def p_comparacion(p):
+    'comparacion : valor operadoresComp expresion'
+
+def p_expresion_matematica(p):
+    'expresion : valor operadoresMat expresion'
+
+def p_expresionBoolean(p):
+    '''expresionBoolean : TRUE
+                        | FALSE'''
+
+def p_operadoresMat(p):
+    '''operadoresMat : MINUS
+                    | PLUS
+                    | TIMES
+                    | DIVIDE'''
+
+def p_operadoresComp(p):
+    '''operadoresComp : MORETHAN
+                        | LESSTHAN
+                        | GQUAL
+                        | LQUAL
+                        | NOTEQUALS
+                        | EQUALS'''
+
+def p_valor(p):
+    '''valor : NUMBER
+             | ID'''
+
+def p_tipoPrimitivo(p):
+    '''tipoPrimitivo : tipoNumeric
+                     | tipoString'''
+
+def p_tipoNumeric(p):
+    '''tipoNumeric : NUM
+                   | INT
+                   | DOUBLE'''
+
+def p_tipoString(p):
+    '''tipoString : STRING
+                  | VAR
+                  | DYNAMIC'''
  #Asignacion
 
 
