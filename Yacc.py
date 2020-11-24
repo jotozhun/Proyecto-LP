@@ -40,6 +40,30 @@ def p_STRING_DECLARAR(p):
                 | STRING
                 | DYNAMIC'''
 
+#...................... VARIABLES BOOLEANAS ............................................................
+
+def p_VARIABLES_BOOLEANO(p):
+    'declaracion_booleana : BOOL STRINGVAL ASSIGN booleano SEMICOLON'
+
+
+def p_VALORES_BOOLEANAS(p):
+    '''booleano : TRUE
+                | FALSE'''
+
+#...................... IMPRIMIR POR PANTALLA ............................................................
+
+def p_IMPRIMR_PANTALLA(p):
+    'imprimir : PRINT LPAREN opciones RPAREN SEMICOLON'
+
+def p_OPCIONES_PANTALLA(p):
+    '''opciones : LDQMARK STRINGVAL RDQMARK
+                | STRINGVAL'''
+
+
+
+
+
+
 #...................... CODIGO DE VERIFICACION .........................................................................
 parser = yacc.yacc()
 
