@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ADD ASSIGN BOOL COMMA DIVIDE DOUBLE DYNAMIC ELSE EQUALS FALSE FOR GQUAL ID IF INT LBRACE LDQMARK LESSTHAN LIST LPAREN LQUAL MAP MINUS MORETHAN NEW NOTEQUALS NUM NUMBER PLUS PRINT PUNTO RBRACE RDQMARK RPAREN SEMICOLON SET SQMARK STRING STRINGVAL TIMES TRUE VAR WHILEdeclarNum : NUM\n                | INT\n                | DOUBLE\n                | VAR\n                | DYNAMICresultado : declarNum STRINGVAL ASSIGN NUMBER SEMICOLONvalor : NUMBER\n             | IDresultado : valor PLUS valor SEMICOLONresultado : valor MINUS valor SEMICOLONresultado : valor TIMES valor SEMICOLONresultado : valor DIVIDE valor SEMICOLONstring : declarar STRINGVAL SEMICOLONdeclarar : VAR\n                | STRING\n                | DYNAMIC'
+_lr_signature = 'ADD ASSIGN BOOL COMMA DIVIDE DOUBLE DYNAMIC ELSE EQUALS FALSE FOR GQUAL ID IF INT LBRACE LDQMARK LESSTHAN LIST LPAREN LQUAL MAP MINUS MORETHAN NEW NOTEQUALS NUM NUMBER PLUS PRINT PUNTO RBRACE RDQMARK RPAREN SEMICOLON SET SQMARK STRING STRINGVAL TIMES TRUE VAR WHILEdeclarNum : NUM\n                | INT\n                | DOUBLE\n                | VAR\n                | DYNAMICresultado : declarNum STRINGVAL ASSIGN NUMBER SEMICOLONvalor : NUMBER\n             | IDresultado : valor PLUS valor SEMICOLONresultado : valor MINUS valor SEMICOLONresultado : valor TIMES valor SEMICOLONresultado : valor DIVIDE valor SEMICOLONstring : declarar STRINGVAL SEMICOLONdeclarar : VAR\n                | STRING\n                | DYNAMICdeclaracion_booleana : BOOL STRINGVAL ASSIGN booleano SEMICOLONbooleano : TRUE\n                | FALSEimprimir : PRINT LPAREN opciones RPAREN SEMICOLONopciones : LDQMARK STRINGVAL RDQMARK\n                | STRINGVALtipo : NUM\n            | INT\n            | STRING\n            | DOUBLE\n            | VAR\n            | DYNAMICagregar : STRINGVAL PUNTO ADD LPAREN LDQMARK ID RDQMARK RPAREN SEMICOLONlista : LIST LESSTHAN tipo MORETHAN STRINGVAL SEMICOLONconjuntos : SET STRINGVAL ASSIGN NEW SET LPAREN RPAREN SEMICOLONif : IF LPAREN ID opcionesIf valor RPAREN LBRACE  RBRACE SEMICOLONopcionesIf : LESSTHAN\n                  | MORETHAN\n                  | GQUAL\n                  | LQUAL\n                  | NOTEQUALS\n                  | EQUALS'
     
 _lr_action_items = {'NUM':([0,],[2,]),'INT':([0,],[3,]),'DOUBLE':([0,],[4,]),'VAR':([0,],[5,]),'DYNAMIC':([0,],[6,]),'$end':([1,2,3,4,5,6,],[0,-1,-2,-3,-4,-5,]),}
 
@@ -43,4 +43,26 @@ _lr_productions = [
   ('declarar -> VAR','declarar',1,'p_STRING_DECLARAR','Yacc.py',39),
   ('declarar -> STRING','declarar',1,'p_STRING_DECLARAR','Yacc.py',40),
   ('declarar -> DYNAMIC','declarar',1,'p_STRING_DECLARAR','Yacc.py',41),
+  ('declaracion_booleana -> BOOL STRINGVAL ASSIGN booleano SEMICOLON','declaracion_booleana',5,'p_VARIABLES_BOOLEANO','Yacc.py',46),
+  ('booleano -> TRUE','booleano',1,'p_VALORES_BOOLEANAS','Yacc.py',50),
+  ('booleano -> FALSE','booleano',1,'p_VALORES_BOOLEANAS','Yacc.py',51),
+  ('imprimir -> PRINT LPAREN opciones RPAREN SEMICOLON','imprimir',5,'p_IMPRIMR_PANTALLA','Yacc.py',56),
+  ('opciones -> LDQMARK STRINGVAL RDQMARK','opciones',3,'p_OPCIONES_PANTALLA','Yacc.py',59),
+  ('opciones -> STRINGVAL','opciones',1,'p_OPCIONES_PANTALLA','Yacc.py',60),
+  ('tipo -> NUM','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',64),
+  ('tipo -> INT','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',65),
+  ('tipo -> STRING','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',66),
+  ('tipo -> DOUBLE','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',67),
+  ('tipo -> VAR','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',68),
+  ('tipo -> DYNAMIC','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',69),
+  ('agregar -> STRINGVAL PUNTO ADD LPAREN LDQMARK ID RDQMARK RPAREN SEMICOLON','agregar',9,'p_AGREGAR_VALOR','Yacc.py',72),
+  ('lista -> LIST LESSTHAN tipo MORETHAN STRINGVAL SEMICOLON','lista',6,'p_DECLARA_LISTA','Yacc.py',75),
+  ('conjuntos -> SET STRINGVAL ASSIGN NEW SET LPAREN RPAREN SEMICOLON','conjuntos',8,'p_DECLARA_CONJUNTOS','Yacc.py',78),
+  ('if -> IF LPAREN ID opcionesIf valor RPAREN LBRACE RBRACE SEMICOLON','if',9,'p_CONDICIONAL','Yacc.py',86),
+  ('opcionesIf -> LESSTHAN','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',89),
+  ('opcionesIf -> MORETHAN','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',90),
+  ('opcionesIf -> GQUAL','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',91),
+  ('opcionesIf -> LQUAL','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',92),
+  ('opcionesIf -> NOTEQUALS','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',93),
+  ('opcionesIf -> EQUALS','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',94),
 ]

@@ -1,6 +1,7 @@
+"""
 import ply.yacc as yacc
 
-#Importar los toquens
+#Importar los tokens
 from main import tokens
 
 #......................OPERACIONES MATEMATICAS............................................................
@@ -60,16 +61,90 @@ def p_OPCIONES_PANTALLA(p):
                 | STRINGVAL'''
 
 
+def p_TIPO_ARREGLOS(p):
+    '''tipo : NUM
+            | INT
+            | STRING
+            | DOUBLE
+            | VAR
+            | DYNAMIC'''
 
+def p_AGREGAR_VALOR(p):
+    'agregar : STRINGVAL PUNTO ADD LPAREN LDQMARK ID RDQMARK RPAREN SEMICOLON'
+
+def p_DECLARA_LISTA(p):
+    'lista : LIST LESSTHAN tipo MORETHAN STRINGVAL SEMICOLON'
+
+def p_DECLARA_CONJUNTOS(p):
+    'conjuntos : SET STRINGVAL ASSIGN NEW SET LPAREN RPAREN SEMICOLON'
+
+#def p_DECLARA_MAPAS(p):
+#    'mapa : MAP LESSTHAN tipo COMA tipo MORETHAN STRINGVAL ASSIGN LBRACE LDQMARK ID RDQMARK COMA valor RBRACE SEMICOLON'
+
+#...................... IF ............................................................
+
+def p_CONDICIONAL(p):
+    'if : IF LPAREN ID opcionesIf valor RPAREN LBRACE  RBRACE SEMICOLON'
+
+def p_OPCIONES_IF(p):
+    '''opcionesIf : LESSTHAN
+                  | MORETHAN
+                  | GQUAL
+                  | LQUAL
+                  | NOTEQUALS
+                  | EQUALS'''
 
 
 
 #...................... CODIGO DE VERIFICACION .........................................................................
 parser = yacc.yacc()
+"""
+import ply.yacc as yacc
 
-while True:
+from main import tokens
+
+def p_expression_plus(p):
+     'expression : expression PLUS term'
+     p[0] = p[1] + p[3]
+ 
+ def p_expression_minus(p):
+     'expression : expression MINUS term'
+     p[0] = p[1] - p[3]
+ 
+ def p_expression_term(p):
+     'expression : term'
+     p[0] = p[1]
+ 
+ def p_term_times(p):
+     'term : term TIMES factor'
+     p[0] = p[1] * p[3]
+ 
+ def p_term_div(p):
+     'term : term DIVIDE factor'
+     p[0] = p[1] / p[3]
+ 
+ def p_term_factor(p):
+     'term : factor'
+     p[0] = p[1]
+ 
+ def p_factor_num(p):
+     'factor : NUMBER'
+     p[0] = p[1]
+ 
+ def p_factor_expr(p):
+     'factor : LPAREN expression RPAREN'
+     p[0] = p[2]
+ 
+ # Error rule for syntax errors
+ def p_error(p):
+     print("Syntax error in input!")
+ 
+ # Build the parser
+ parser = yacc.yacc()
+ 
+ while True:
     try:
-        s = input('calc > ')
+        s = raw_input('calc > ')
     except EOFError:
         break
     if not s: continue

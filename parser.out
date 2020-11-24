@@ -2,33 +2,11 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    ADD
-    BOOL
     COMMA
     ELSE
-    EQUALS
-    FALSE
     FOR
-    GQUAL
-    IF
-    LBRACE
-    LDQMARK
-    LESSTHAN
-    LIST
-    LPAREN
-    LQUAL
     MAP
-    MORETHAN
-    NEW
-    NOTEQUALS
-    PRINT
-    PUNTO
-    RBRACE
-    RDQMARK
-    RPAREN
-    SET
     SQMARK
-    TRUE
     WHILE
 
 Grammar
@@ -50,61 +28,93 @@ Rule 13    string -> declarar STRINGVAL SEMICOLON
 Rule 14    declarar -> VAR
 Rule 15    declarar -> STRING
 Rule 16    declarar -> DYNAMIC
+Rule 17    declaracion_booleana -> BOOL STRINGVAL ASSIGN booleano SEMICOLON
+Rule 18    booleano -> TRUE
+Rule 19    booleano -> FALSE
+Rule 20    imprimir -> PRINT LPAREN opciones RPAREN SEMICOLON
+Rule 21    opciones -> LDQMARK STRINGVAL RDQMARK
+Rule 22    opciones -> STRINGVAL
+Rule 23    tipo -> NUM
+Rule 24    tipo -> INT
+Rule 25    tipo -> STRING
+Rule 26    tipo -> DOUBLE
+Rule 27    tipo -> VAR
+Rule 28    tipo -> DYNAMIC
+Rule 29    agregar -> STRINGVAL PUNTO ADD LPAREN LDQMARK ID RDQMARK RPAREN SEMICOLON
+Rule 30    lista -> LIST LESSTHAN tipo MORETHAN STRINGVAL SEMICOLON
+Rule 31    conjuntos -> SET STRINGVAL ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+Rule 32    if -> IF LPAREN ID opcionesIf valor RPAREN LBRACE RBRACE SEMICOLON
+Rule 33    opcionesIf -> LESSTHAN
+Rule 34    opcionesIf -> MORETHAN
+Rule 35    opcionesIf -> GQUAL
+Rule 36    opcionesIf -> LQUAL
+Rule 37    opcionesIf -> NOTEQUALS
+Rule 38    opcionesIf -> EQUALS
 
 Terminals, with rules where they appear
 
-ADD                  : 
-ASSIGN               : 6
-BOOL                 : 
+ADD                  : 29
+ASSIGN               : 6 17 31
+BOOL                 : 17
 COMMA                : 
 DIVIDE               : 12
-DOUBLE               : 3
-DYNAMIC              : 5 16
+DOUBLE               : 3 26
+DYNAMIC              : 5 16 28
 ELSE                 : 
-EQUALS               : 
-FALSE                : 
+EQUALS               : 38
+FALSE                : 19
 FOR                  : 
-GQUAL                : 
-ID                   : 8
-IF                   : 
-INT                  : 2
-LBRACE               : 
-LDQMARK              : 
-LESSTHAN             : 
-LIST                 : 
-LPAREN               : 
-LQUAL                : 
+GQUAL                : 35
+ID                   : 8 29 32
+IF                   : 32
+INT                  : 2 24
+LBRACE               : 32
+LDQMARK              : 21 29
+LESSTHAN             : 30 33
+LIST                 : 30
+LPAREN               : 20 29 31 32
+LQUAL                : 36
 MAP                  : 
 MINUS                : 10
-MORETHAN             : 
-NEW                  : 
-NOTEQUALS            : 
-NUM                  : 1
+MORETHAN             : 30 34
+NEW                  : 31
+NOTEQUALS            : 37
+NUM                  : 1 23
 NUMBER               : 6 7
 PLUS                 : 9
-PRINT                : 
-PUNTO                : 
-RBRACE               : 
-RDQMARK              : 
-RPAREN               : 
-SEMICOLON            : 6 9 10 11 12 13
-SET                  : 
+PRINT                : 20
+PUNTO                : 29
+RBRACE               : 32
+RDQMARK              : 21 29
+RPAREN               : 20 29 31 32
+SEMICOLON            : 6 9 10 11 12 13 17 20 29 30 31 32
+SET                  : 31 31
 SQMARK               : 
-STRING               : 15
-STRINGVAL            : 6 13
+STRING               : 15 25
+STRINGVAL            : 6 13 17 21 22 29 30 31
 TIMES                : 11
-TRUE                 : 
-VAR                  : 4 14
+TRUE                 : 18
+VAR                  : 4 14 27
 WHILE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
+agregar              : 
+booleano             : 17
+conjuntos            : 
 declarNum            : 6 0
+declaracion_booleana : 
 declarar             : 13
+if                   : 
+imprimir             : 
+lista                : 
+opciones             : 20
+opcionesIf           : 32
 resultado            : 
 string               : 
-valor                : 9 9 10 10 11 11 12 12
+tipo                 : 30
+valor                : 9 9 10 10 11 11 12 12 32
 
 Parsing method: LALR
 

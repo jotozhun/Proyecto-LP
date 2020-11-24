@@ -1,5 +1,26 @@
 import ply.lex as lex
-import ply.yacc as yacc
+
+reserved = {
+    'num':'NUM',
+    'int':'INT',
+    'double':'DOUBLE',
+    'bool': 'BOOL',
+    'true':'TRUE',
+    'false':'FALSE',
+    'var':'VAR',
+    'String':'STRING',
+    'dynamic': 'DYNAMIC',
+    'if':'IF',
+    'else':'ELSE',
+    'for':'FOR',
+    'while':'WHILE',
+    'List':'LIST',
+    'add':'ADD',
+    'Map':'MAP',
+    'Set':'SET',
+    'print':'PRINT',
+    'new':'NEW'
+}
 
 tokens = [
     'STRINGVAL',
@@ -26,32 +47,7 @@ tokens = [
     'LQUAL',
     'EQUALS',
     'NOTEQUALS'
-
-
 ]
-
-reserved = {
-    'num':'NUM',
-    'int':'INT',
-    'double':'DOUBLE',
-    'bool': 'BOOL',
-    'true':'TRUE',
-    'false':'FALSE',
-    'var':'VAR',
-    'String':'STRING',
-    'dynamic': 'DYNAMIC',
-    'if':'IF',
-    'else':'ELSE',
-    'for':'FOR',
-    'while':'WHILE',
-    'List':'LIST',
-    'add':'ADD',
-    'Map':'MAP',
-    'Set':'SET',
-    'print':'PRINT',
-    'new':'NEW'
-
-}
 
 tokens += list(reserved.values())
 
