@@ -40,7 +40,7 @@ def p_STRING_DECLARAR(p):
                 | STRING
                 | DYNAMIC'''
 
-#...................... VARIABLES BOOLEANAS ............................................................
+#...................... VARIABLES BOOLEANAS ............................................................Andres Morales
 
 def p_VARIABLES_BOOLEANO(p):
     'declaracion_booleana : BOOL STRINGVAL ASSIGN booleano SEMICOLON'
@@ -50,7 +50,7 @@ def p_VALORES_BOOLEANAS(p):
     '''booleano : TRUE
                 | FALSE'''
 
-#...................... IMPRIMIR POR PANTALLA ............................................................
+#...................... IMPRIMIR POR PANTALLA ............................................................ Andres Morales 
 
 def p_IMPRIMR_PANTALLA(p):
     'imprimir : PRINT LPAREN opciones RPAREN SEMICOLON'
