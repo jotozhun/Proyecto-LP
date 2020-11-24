@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ADD ASSIGN BOOL COMMA DIVIDE DOUBLE DYNAMIC ELSE EQUALS FALSE FOR GQUAL ID IF INT LBRACE LDQMARK LESSTHAN LIST LPAREN LQUAL MAP MINUS MORETHAN NEW NOTEQUALS NUM NUMBER PLUS PRINT PUNTO RBRACE RDQMARK RPAREN SEMICOLON SET SQMARK STRING STRINGVAL TIMES TRUE VAR WHILEdeclarNum : NUM\n                | INT\n                | DOUBLE\n                | VAR\n                | DYNAMICresultado : declarNum STRINGVAL ASSIGN NUMBER SEMICOLONvalor : NUMBER\n             | IDresultado : valor PLUS valor SEMICOLONresultado : valor MINUS valor SEMICOLONresultado : valor TIMES valor SEMICOLONresultado : valor DIVIDE valor SEMICOLONstring : declarar STRINGVAL SEMICOLONdeclarar : VAR\n                | STRING\n                | DYNAMICdeclaracion_booleana : BOOL STRINGVAL ASSIGN booleano SEMICOLONbooleano : TRUE\n                | FALSEimprimir : PRINT LPAREN opciones RPAREN SEMICOLONopciones : LDQMARK STRINGVAL RDQMARK\n                | STRINGVALtipo : NUM\n            | INT\n            | STRING\n            | DOUBLE\n            | VAR\n            | DYNAMICagregar : STRINGVAL PUNTO ADD LPAREN LDQMARK ID RDQMARK RPAREN SEMICOLONlista : LIST LESSTHAN tipo MORETHAN STRINGVAL SEMICOLONconjuntos : SET STRINGVAL ASSIGN NEW SET LPAREN RPAREN SEMICOLONif : IF LPAREN ID opcionesIf valor RPAREN LBRACE  RBRACE SEMICOLONopcionesIf : LESSTHAN\n                  | MORETHAN\n                  | GQUAL\n                  | LQUAL\n                  | NOTEQUALS\n                  | EQUALS'
+_lr_signature = 'ADD ASSIGN BOOL COLON COMMA DIVIDE DOUBLE DYNAMIC ELSE EQUALS FALSE FOR GQUAL ID IF INT LBRACE LDQMARK LESSTHAN LIST LPAREN LQUAL MAP MINUS MORETHAN NEW NOTEQUALS NUM NUMBER PLUS PRINT PUNTO RBRACE RDQMARK RPAREN SEMICOLON SET SQMARK STRING STRINGVAL TIMES TRUE VAR VOID WHILEcuerpo : asignacion\n            | expresion\n            | comparacion\n            | sentenciaif\n            | funcionesfunciones : declararFunc \n                 | usarFuncdeclararFunc : VOID ID LPAREN RPAREN LBRACE cuerpo RBRACEusarFunc : PRINT LPAREN STRINGVAL RPAREN SEMICOLONsentenciaif : IF LPAREN comparacion RPAREN COLON cuerpoasignacion : asignacionNumerica \n                  | asignacionString\n                  | asignacionBoolean\n                  | asignacionEstructuraDatosasignacionEstructuraDatos : asignacionList\n                                 | asignacionSet\n                                 | asignacionMapasignacionList : LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLONasignacionSet : SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLONasignacionMap : MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLONasignacionBoolean : BOOL ID ASSIGN expresionBoolean SEMICOLONasignacionNumerica : tipoNumeric ID ASSIGN expresion SEMICOLONasignacionString : tipoString ID ASSIGN expresionString SEMICOLONexpresion : valorexpresionString : STRINGVALcomparacion : valor operadoresComp expresionexpresion : valor operadoresMat expresionexpresionBoolean : TRUE\n                        | FALSEoperadoresMat : MINUS\n                    | PLUS\n                    | TIMES\n                    | DIVIDEoperadoresComp : MORETHAN\n                        | LESSTHAN\n                        | GQUAL\n                        | LQUAL\n                        | NOTEQUALS\n                        | EQUALSvalor : NUMBER\n             | IDtipoPrimitivo : tipoNumeric\n                     | tipoStringtipoNumeric : NUM\n                   | INT\n                   | DOUBLEtipoString : STRING\n                  | VAR\n                  | DYNAMIC'
     
-_lr_action_items = {'NUM':([0,],[2,]),'INT':([0,],[3,]),'DOUBLE':([0,],[4,]),'VAR':([0,],[5,]),'DYNAMIC':([0,],[6,]),'$end':([1,2,3,4,5,6,],[0,-1,-2,-3,-4,-5,]),}
+_lr_action_items = {'IF':([0,82,86,],[12,12,12,]),'BOOL':([0,82,86,],[18,18,18,]),'NUMBER':([0,34,35,36,37,38,39,40,41,42,43,44,45,46,60,82,86,],[22,22,22,-30,-31,-32,-33,-34,-35,-36,-37,-38,-39,22,22,22,22,]),'ID':([0,15,17,18,23,25,26,27,28,29,30,32,34,35,36,37,38,39,40,41,42,43,44,45,46,60,79,82,86,95,],[16,47,48,49,50,-44,-45,-46,-47,-48,-49,53,16,16,-30,-31,-32,-33,-34,-35,-36,-37,-38,-39,16,16,88,16,16,98,]),'VOID':([0,82,86,],[23,23,23,]),'PRINT':([0,82,86,],[24,24,24,]),'NUM':([0,52,54,81,82,86,],[25,25,25,25,25,25,]),'INT':([0,52,54,81,82,86,],[26,26,26,26,26,26,]),'DOUBLE':([0,52,54,81,82,86,],[27,27,27,27,27,27,]),'STRING':([0,52,54,81,82,86,],[28,28,28,28,28,28,]),'VAR':([0,52,54,81,82,86,],[29,29,29,29,29,29,]),'DYNAMIC':([0,52,54,81,82,86,],[30,30,30,30,30,30,]),'LIST':([0,82,86,],[31,31,31,]),'SET':([0,80,82,86,],[32,89,32,32,]),'MAP':([0,82,86,],[33,33,33,]),'$end':([1,2,3,4,5,6,7,8,9,10,11,13,14,16,19,20,21,22,55,56,57,83,84,85,87,91,93,96,99,100,],[0,-1,-2,-3,-4,-5,-11,-12,-13,-14,-24,-6,-7,-41,-15,-16,-17,-40,-24,-27,-26,-22,-23,-21,-9,-10,-18,-8,-19,-20,]),'RBRACE':([2,3,4,5,6,7,8,9,10,11,13,14,16,19,20,21,22,55,56,57,83,84,85,87,91,92,93,96,99,100,],[-1,-2,-3,-4,-5,-11,-12,-13,-14,-24,-6,-7,-41,-15,-16,-17,-40,-24,-27,-26,-22,-23,-21,-9,-10,96,-18,-8,-19,-20,]),'MINUS':([11,16,22,55,],[36,-41,-40,36,]),'PLUS':([11,16,22,55,],[37,-41,-40,37,]),'TIMES':([11,16,22,55,],[38,-41,-40,38,]),'DIVIDE':([11,16,22,55,],[39,-41,-40,39,]),'MORETHAN':([11,16,22,25,26,27,28,29,30,59,65,66,67,90,],[40,-41,-40,-44,-45,-46,-47,-48,-49,40,79,-42,-43,95,]),'LESSTHAN':([11,16,22,31,33,59,],[41,-41,-40,52,54,41,]),'GQUAL':([11,16,22,59,],[42,-41,-40,42,]),'LQUAL':([11,16,22,59,],[43,-41,-40,43,]),'NOTEQUALS':([11,16,22,59,],[44,-41,-40,44,]),'EQUALS':([11,16,22,59,],[45,-41,-40,45,]),'LPAREN':([12,24,50,89,],[46,51,63,94,]),'RPAREN':([16,22,55,56,57,58,63,64,94,],[-41,-40,-24,-27,-26,70,77,78,97,]),'SEMICOLON':([16,22,55,56,71,72,73,74,75,76,78,88,97,98,],[-41,-40,-24,-27,83,84,-25,85,-28,-29,87,93,99,100,]),'COMMA':([25,26,27,28,29,30,66,67,69,],[-44,-45,-46,-47,-48,-49,-42,-43,81,]),'ASSIGN':([47,48,49,53,],[60,61,62,68,]),'STRINGVAL':([51,61,],[64,73,]),'TRUE':([62,],[75,]),'FALSE':([62,],[76,]),'NEW':([68,],[80,]),'COLON':([70,],[82,]),'LBRACE':([77,],[86,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'declarNum':([0,],[1,]),}
+_lr_goto_items = {'cuerpo':([0,82,86,],[1,91,92,]),'asignacion':([0,82,86,],[2,2,2,]),'expresion':([0,34,35,60,82,86,],[3,56,57,71,3,3,]),'comparacion':([0,46,82,86,],[4,58,4,4,]),'sentenciaif':([0,82,86,],[5,5,5,]),'funciones':([0,82,86,],[6,6,6,]),'asignacionNumerica':([0,82,86,],[7,7,7,]),'asignacionString':([0,82,86,],[8,8,8,]),'asignacionBoolean':([0,82,86,],[9,9,9,]),'asignacionEstructuraDatos':([0,82,86,],[10,10,10,]),'valor':([0,34,35,46,60,82,86,],[11,55,55,59,55,11,11,]),'declararFunc':([0,82,86,],[13,13,13,]),'usarFunc':([0,82,86,],[14,14,14,]),'tipoNumeric':([0,52,54,81,82,86,],[15,66,66,66,15,15,]),'tipoString':([0,52,54,81,82,86,],[17,67,67,67,17,17,]),'asignacionList':([0,82,86,],[19,19,19,]),'asignacionSet':([0,82,86,],[20,20,20,]),'asignacionMap':([0,82,86,],[21,21,21,]),'operadoresMat':([11,55,],[34,34,]),'operadoresComp':([11,59,],[35,35,]),'tipoPrimitivo':([52,54,81,],[65,69,90,]),'expresionString':([61,],[72,]),'expresionBoolean':([62,],[74,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,43 +26,54 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> declarNum","S'",1,None,None,None),
-  ('declarNum -> NUM','declarNum',1,'p_VARIABLES_NUMEROS','Yacc.py',8),
-  ('declarNum -> INT','declarNum',1,'p_VARIABLES_NUMEROS','Yacc.py',9),
-  ('declarNum -> DOUBLE','declarNum',1,'p_VARIABLES_NUMEROS','Yacc.py',10),
-  ('declarNum -> VAR','declarNum',1,'p_VARIABLES_NUMEROS','Yacc.py',11),
-  ('declarNum -> DYNAMIC','declarNum',1,'p_VARIABLES_NUMEROS','Yacc.py',12),
-  ('resultado -> declarNum STRINGVAL ASSIGN NUMBER SEMICOLON','resultado',5,'p_DECLARAR_NUMEROS','Yacc.py',15),
-  ('valor -> NUMBER','valor',1,'p_VALOR','Yacc.py',18),
-  ('valor -> ID','valor',1,'p_VALOR','Yacc.py',19),
-  ('resultado -> valor PLUS valor SEMICOLON','resultado',4,'p_SUMA','Yacc.py',22),
-  ('resultado -> valor MINUS valor SEMICOLON','resultado',4,'p_RESTA','Yacc.py',25),
-  ('resultado -> valor TIMES valor SEMICOLON','resultado',4,'p_MULTIPLIACION','Yacc.py',28),
-  ('resultado -> valor DIVIDE valor SEMICOLON','resultado',4,'p_DIVISION','Yacc.py',31),
-  ('string -> declarar STRINGVAL SEMICOLON','string',3,'p_STRING','Yacc.py',36),
-  ('declarar -> VAR','declarar',1,'p_STRING_DECLARAR','Yacc.py',39),
-  ('declarar -> STRING','declarar',1,'p_STRING_DECLARAR','Yacc.py',40),
-  ('declarar -> DYNAMIC','declarar',1,'p_STRING_DECLARAR','Yacc.py',41),
-  ('declaracion_booleana -> BOOL STRINGVAL ASSIGN booleano SEMICOLON','declaracion_booleana',5,'p_VARIABLES_BOOLEANO','Yacc.py',46),
-  ('booleano -> TRUE','booleano',1,'p_VALORES_BOOLEANAS','Yacc.py',50),
-  ('booleano -> FALSE','booleano',1,'p_VALORES_BOOLEANAS','Yacc.py',51),
-  ('imprimir -> PRINT LPAREN opciones RPAREN SEMICOLON','imprimir',5,'p_IMPRIMR_PANTALLA','Yacc.py',56),
-  ('opciones -> LDQMARK STRINGVAL RDQMARK','opciones',3,'p_OPCIONES_PANTALLA','Yacc.py',59),
-  ('opciones -> STRINGVAL','opciones',1,'p_OPCIONES_PANTALLA','Yacc.py',60),
-  ('tipo -> NUM','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',64),
-  ('tipo -> INT','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',65),
-  ('tipo -> STRING','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',66),
-  ('tipo -> DOUBLE','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',67),
-  ('tipo -> VAR','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',68),
-  ('tipo -> DYNAMIC','tipo',1,'p_TIPO_ARREGLOS','Yacc.py',69),
-  ('agregar -> STRINGVAL PUNTO ADD LPAREN LDQMARK ID RDQMARK RPAREN SEMICOLON','agregar',9,'p_AGREGAR_VALOR','Yacc.py',72),
-  ('lista -> LIST LESSTHAN tipo MORETHAN STRINGVAL SEMICOLON','lista',6,'p_DECLARA_LISTA','Yacc.py',75),
-  ('conjuntos -> SET STRINGVAL ASSIGN NEW SET LPAREN RPAREN SEMICOLON','conjuntos',8,'p_DECLARA_CONJUNTOS','Yacc.py',78),
-  ('if -> IF LPAREN ID opcionesIf valor RPAREN LBRACE RBRACE SEMICOLON','if',9,'p_CONDICIONAL','Yacc.py',86),
-  ('opcionesIf -> LESSTHAN','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',89),
-  ('opcionesIf -> MORETHAN','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',90),
-  ('opcionesIf -> GQUAL','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',91),
-  ('opcionesIf -> LQUAL','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',92),
-  ('opcionesIf -> NOTEQUALS','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',93),
-  ('opcionesIf -> EQUALS','opcionesIf',1,'p_OPCIONES_IF','Yacc.py',94),
+  ("S' -> cuerpo","S'",1,None,None,None),
+  ('cuerpo -> asignacion','cuerpo',1,'p_cuerpo','Yacc.py',9),
+  ('cuerpo -> expresion','cuerpo',1,'p_cuerpo','Yacc.py',10),
+  ('cuerpo -> comparacion','cuerpo',1,'p_cuerpo','Yacc.py',11),
+  ('cuerpo -> sentenciaif','cuerpo',1,'p_cuerpo','Yacc.py',12),
+  ('cuerpo -> funciones','cuerpo',1,'p_cuerpo','Yacc.py',13),
+  ('funciones -> declararFunc','funciones',1,'p_funciones','Yacc.py',16),
+  ('funciones -> usarFunc','funciones',1,'p_funciones','Yacc.py',17),
+  ('declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpo RBRACE','declararFunc',7,'p_declararFunc','Yacc.py',20),
+  ('usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON','usarFunc',5,'p_usarFunc','Yacc.py',23),
+  ('sentenciaif -> IF LPAREN comparacion RPAREN COLON cuerpo','sentenciaif',6,'p_sentenciaif','Yacc.py',26),
+  ('asignacion -> asignacionNumerica','asignacion',1,'p_asignacion','Yacc.py',29),
+  ('asignacion -> asignacionString','asignacion',1,'p_asignacion','Yacc.py',30),
+  ('asignacion -> asignacionBoolean','asignacion',1,'p_asignacion','Yacc.py',31),
+  ('asignacion -> asignacionEstructuraDatos','asignacion',1,'p_asignacion','Yacc.py',32),
+  ('asignacionEstructuraDatos -> asignacionList','asignacionEstructuraDatos',1,'p_asignacionEstructuraDatos','Yacc.py',35),
+  ('asignacionEstructuraDatos -> asignacionSet','asignacionEstructuraDatos',1,'p_asignacionEstructuraDatos','Yacc.py',36),
+  ('asignacionEstructuraDatos -> asignacionMap','asignacionEstructuraDatos',1,'p_asignacionEstructuraDatos','Yacc.py',37),
+  ('asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON','asignacionList',6,'p_asignacionList','Yacc.py',40),
+  ('asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON','asignacionSet',8,'p_asignacionSet','Yacc.py',43),
+  ('asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON','asignacionMap',8,'p_asignacionMap','Yacc.py',46),
+  ('asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON','asignacionBoolean',5,'p_asignacionBoolean','Yacc.py',49),
+  ('asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON','asignacionNumerica',5,'p_asignacionNumerica','Yacc.py',52),
+  ('asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON','asignacionString',5,'p_asignacionString','Yacc.py',55),
+  ('expresion -> valor','expresion',1,'p_expresion','Yacc.py',58),
+  ('expresionString -> STRINGVAL','expresionString',1,'p_expresionString','Yacc.py',61),
+  ('comparacion -> valor operadoresComp expresion','comparacion',3,'p_comparacion','Yacc.py',64),
+  ('expresion -> valor operadoresMat expresion','expresion',3,'p_expresion_matematica','Yacc.py',67),
+  ('expresionBoolean -> TRUE','expresionBoolean',1,'p_expresionBoolean','Yacc.py',70),
+  ('expresionBoolean -> FALSE','expresionBoolean',1,'p_expresionBoolean','Yacc.py',71),
+  ('operadoresMat -> MINUS','operadoresMat',1,'p_operadoresMat','Yacc.py',74),
+  ('operadoresMat -> PLUS','operadoresMat',1,'p_operadoresMat','Yacc.py',75),
+  ('operadoresMat -> TIMES','operadoresMat',1,'p_operadoresMat','Yacc.py',76),
+  ('operadoresMat -> DIVIDE','operadoresMat',1,'p_operadoresMat','Yacc.py',77),
+  ('operadoresComp -> MORETHAN','operadoresComp',1,'p_operadoresComp','Yacc.py',80),
+  ('operadoresComp -> LESSTHAN','operadoresComp',1,'p_operadoresComp','Yacc.py',81),
+  ('operadoresComp -> GQUAL','operadoresComp',1,'p_operadoresComp','Yacc.py',82),
+  ('operadoresComp -> LQUAL','operadoresComp',1,'p_operadoresComp','Yacc.py',83),
+  ('operadoresComp -> NOTEQUALS','operadoresComp',1,'p_operadoresComp','Yacc.py',84),
+  ('operadoresComp -> EQUALS','operadoresComp',1,'p_operadoresComp','Yacc.py',85),
+  ('valor -> NUMBER','valor',1,'p_valor','Yacc.py',88),
+  ('valor -> ID','valor',1,'p_valor','Yacc.py',89),
+  ('tipoPrimitivo -> tipoNumeric','tipoPrimitivo',1,'p_tipoPrimitivo','Yacc.py',92),
+  ('tipoPrimitivo -> tipoString','tipoPrimitivo',1,'p_tipoPrimitivo','Yacc.py',93),
+  ('tipoNumeric -> NUM','tipoNumeric',1,'p_tipoNumeric','Yacc.py',96),
+  ('tipoNumeric -> INT','tipoNumeric',1,'p_tipoNumeric','Yacc.py',97),
+  ('tipoNumeric -> DOUBLE','tipoNumeric',1,'p_tipoNumeric','Yacc.py',98),
+  ('tipoString -> STRING','tipoString',1,'p_tipoString','Yacc.py',101),
+  ('tipoString -> VAR','tipoString',1,'p_tipoString','Yacc.py',102),
+  ('tipoString -> DYNAMIC','tipoString',1,'p_tipoString','Yacc.py',103),
 ]

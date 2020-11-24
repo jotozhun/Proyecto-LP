@@ -19,7 +19,8 @@ reserved = {
     'Map':'MAP',
     'Set':'SET',
     'print':'PRINT',
-    'new':'NEW'
+    'new':'NEW',
+    'void':'VOID'
 }
 
 tokens = [
@@ -32,6 +33,7 @@ tokens = [
     'COMMA',
     'PUNTO',
     'SEMICOLON',
+    'COLON',
     'LPAREN',
     'RPAREN',
     'LBRACE',
@@ -64,6 +66,7 @@ t_RBRACE = r'}'
 t_LESSTHAN = r'<'
 t_MORETHAN = r'>'
 t_COMMA = r','
+t_COLON = r':'
 t_SEMICOLON = r';'
 t_LDQMARK = r'\“'
 t_RDQMARK = r'\”'
