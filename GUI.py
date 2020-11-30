@@ -2,13 +2,15 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
+from main import *
+
 import sys
 
 
 class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
-        self.resize(600, 600)
+        self.resize(700, 600)
         self.setWindowTitle("Lexic&Syntax")
         self.textbox = QTextEdit(self)
         self.resultText = QTextEdit(self)
@@ -25,6 +27,7 @@ class MainWindow(QMainWindow):
 
         newButton = QAction(QIcon("Assets/new.png"), "Nuevo Archivo", self)
         newButton.setStatusTip("Nuevo Archivo")
+        newButton.triggered.connect(lambda x: self.onNewFileButton())
         toolbar.addAction(newButton)
 
         saveButton = QAction(QIcon("Assets/save.png"), "Guardar Archivo", self)
@@ -33,6 +36,7 @@ class MainWindow(QMainWindow):
 
         lexicoButton = QAction(QIcon("Assets/lex.png"), "Analizar léxico", self)
         lexicoButton.setStatusTip("Ejecutar analizador léxico")
+        lexicoButton.triggered.connect(lambda x: self.onLexButton())
         toolbar.addAction(lexicoButton)
 
         syntaxButton = QAction(QIcon("Assets/synt.png"), "Analizar sintáctica", self)
@@ -42,15 +46,30 @@ class MainWindow(QMainWindow):
         # Cuadro de texto
 
         self.textbox.move(5, 45)
-        self.textbox.resize(345, 550)
-        self.textbox.setCurrentFont(QFont("Times", 18))
+        self.textbox.resize(395, 550)
+        #self.textbox.setCurrentFont(QFont("Times", 18))
+        self.textbox.setFontPointSize(int(18))
 
-        self.resultText.move(355, 45)
-        self.resultText.resize(240, 550)
-        self.resultText.setReadOnly(True)
-
+        self.resultText.move(405, 45)
+        self.resultText.resize(290, 550)
+        #self.resultText.setReadOnly(True)
         # Cuadro de resultados
 
+    def isTextboxEmpty(self):
+        return self.textbox.toPlainText() == ""
+
+    def onNewFileButton(self):
+        self.textbox.clear()
+        self.resultText.clear()
+        self.textbox.setFontPointSize(int(18))
+
+    def onLexButton(self):
+        if(not self.isTextboxEmpty()):
+            self.resultText.clear()
+            textToProcess = self.textbox.toPlainText()
+            #self.resultText.setText(textToProcess)
+            resultText = lexAnalizer(textToProcess)
+            self.resultText.setText(resultText)
 
 app = QApplication(sys.argv)
 

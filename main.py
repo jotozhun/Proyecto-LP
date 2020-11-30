@@ -80,7 +80,7 @@ t_PUNTO = r'\.'
 
 
 def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    r'[a-z_][a-zA-Z0-9_]*'
     t.type = reserved.get(t.value, 'ID')
     return t
 
@@ -108,8 +108,21 @@ def t_error(t):
     print('Illegal character "%s"' %t.value[0])
     t.lexer.skip(1)
 
+
+def lexAnalizer(texto):
+    lexer.input(texto)
+    result = ""
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break  # No more input
+        result += (str(tok) + "\n")
+    return result
+
 lexer = lex.lex()
 
+print(lexAnalizer("Ya pues mi prro quedate fresco"))
+'''
 file = open("archivo.txt", encoding="utf8")
 
 for line in file:
@@ -119,5 +132,5 @@ for line in file:
         if not tok:
             break  # No more input
         print(tok)
-
+'''
 #Analizador Sintactico.................................................
