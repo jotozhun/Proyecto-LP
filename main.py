@@ -1,4 +1,5 @@
 import ply.lex as lex
+import logging
 
 reserved = {
     'num':'NUM',
@@ -105,23 +106,27 @@ def t_COMMENT(t):
 t_ignore = ' \t'
 
 def t_error(t):
+    logging.debug('Illegal character "%s at line %d"' %(t.value[0], t.lexer.lineno))
     print('Illegal character "%s"' %t.value[0])
     t.lexer.skip(1)
 
 
+
 def lexAnalizer(texto):
+    lexer = lex.lex()
     lexer.input(texto)
-    result = ""
+    lexResult = ""
     while True:
         tok = lexer.token()
         if not tok:
             break  # No more input
-        result += (str(tok) + "\n")
-    return result
+        lexResult += (str(tok) + "\n")
+    return lexResult
 
+
+logging.basicConfig(filename="lexErrors.txt", filemode="w", level=logging.DEBUG)
 lexer = lex.lex()
 
-print(lexAnalizer("Ya pues mi prro quedate fresco"))
 '''
 file = open("archivo.txt", encoding="utf8")
 

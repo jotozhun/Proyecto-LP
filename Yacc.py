@@ -1,5 +1,5 @@
 import ply.yacc as yacc
-
+import logging
 from main import tokens
 
 #Expresiones matematicas
@@ -106,11 +106,24 @@ def p_tipoString(p):
 
  # Error rule for syntax errors
 def p_error(p):
+    logging.debug("Syntax error in input!")
     print("Syntax error in input!")
 
 # Build the parser
-parser = yacc.yacc()
 
+
+logging.basicConfig(filename="yaccErrors.txt", filemode="w", level=logging.DEBUG)
+#parser = yacc.yacc()
+
+
+
+def analizadorSintactico(entrada):
+    parser = yacc.yacc()
+    return str(parser.parse(entrada))
+    #yaccResult = str(parser.parse(entrada))
+    #return yaccResult
+
+"""
 while True:
     try:
         s = input('calc > ')
@@ -127,3 +140,4 @@ print(s)
 result = parser.parse(s)
 print(result)
 f.close()
+"""

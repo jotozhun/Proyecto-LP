@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 from main import *
+from Yacc import *
 
 import sys
 
@@ -32,6 +33,7 @@ class MainWindow(QMainWindow):
 
         saveButton = QAction(QIcon("Assets/save.png"), "Guardar Archivo", self)
         saveButton.setStatusTip("Guardar Archivo")
+        saveButton.triggered.connect(lambda x: self.onSaveButton())
         toolbar.addAction(saveButton)
 
         lexicoButton = QAction(QIcon("Assets/lex.png"), "Analizar léxico", self)
@@ -41,6 +43,7 @@ class MainWindow(QMainWindow):
 
         syntaxButton = QAction(QIcon("Assets/synt.png"), "Analizar sintáctica", self)
         syntaxButton.setStatusTip("Ejecutar analizador sintáctico")
+        syntaxButton.triggered.connect(lambda x: self.onSyntButton())
         toolbar.addAction(syntaxButton)
 
         # Cuadro de texto
@@ -67,9 +70,38 @@ class MainWindow(QMainWindow):
         if(not self.isTextboxEmpty()):
             self.resultText.clear()
             textToProcess = self.textbox.toPlainText()
-            #self.resultText.setText(textToProcess)
             resultText = lexAnalizer(textToProcess)
+            lexFile = open("lexErrors.txt", "r")
+            resultText += "\n\n\nErrores de sintaxis: \n\n%s" % lexFile.read()
+            lexFile.close()
+            #Just for overwriting
+            raw = open("lexErrors.txt", "w")
+            raw.close()
             self.resultText.setText(resultText)
+
+    def onSyntButton(self):
+        if not self.isTextboxEmpty():
+            self.resultText.clear()
+            textToProcess = self.textbox.toPlainText()
+            resultText = analizadorSintactico(textToProcess)
+            syntFile = open("yaccErrors.txt", "r")
+            resultText += "\n\n\nErrores de sintaxis: \n\n%s" %syntFile.read()
+            syntFile.close()
+            # Just for overwriting
+            raw = open("lexErrors.txt", "w")
+            raw.close()
+            self.resultText.setText(resultText)
+
+    def onSaveButton(self):
+        saveFile = QFileDialog.getSaveFileName(None, "SaveTextFile", "/", "Text Files (*.txt)")
+
+        headText = self.textbox.toPlainText()
+        footText = self.resultText.toPlainText()
+
+        if saveFile[0]:
+            with open(saveFile[0], 'w') as file:
+                file.write("Texto a procesar:\n\n" + headText + "\n\n\n" + "Texto analizado: \n\n" + footText)
+
 
 app = QApplication(sys.argv)
 
