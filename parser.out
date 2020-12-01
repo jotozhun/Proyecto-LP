@@ -3,136 +3,2958 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     ADD
-    BOOL
-    ELSE
-    FOR
+    COLON
     LDQMARK
     PUNTO
     RDQMARK
     SQMARK
-    WHILE
 
 Grammar
 
-Rule 0     S' -> cuerpo
-Rule 1     cuerpo -> asignacion
-Rule 2     cuerpo -> expresion
-Rule 3     cuerpo -> comparacion
-Rule 4     cuerpo -> sentenciaif
-Rule 5     cuerpo -> funciones
-Rule 6     funciones -> declararFunc
-Rule 7     funciones -> usarFunc
-Rule 8     declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpo RBRACE
-Rule 9     usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON
-Rule 10    sentenciaif -> IF LPAREN comparacion RPAREN COLON cuerpo
-Rule 11    asignacion -> asignacionNumerica
-Rule 12    asignacion -> asignacionString
-Rule 13    asignacion -> asignacionBoolean
-Rule 14    asignacion -> asignacionEstructuraDatos
-Rule 15    asignacionEstructuraDatos -> asignacionList
-Rule 16    asignacionEstructuraDatos -> asignacionSet
-Rule 17    asignacionEstructuraDatos -> asignacionMap
-Rule 18    asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
-Rule 19    asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
-Rule 20    asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
-Rule 21    expresionString -> STRINGVAL
-Rule 22    comparacion -> valor operadoresComp expresion
-Rule 23    expresion -> valor operadoresMat expresion
-Rule 24    expresionBoolean -> TRUE
-Rule 25    expresionBoolean -> FALSE
-Rule 26    operadoresMat -> MINUS
-Rule 27    operadoresMat -> PLUS
-Rule 28    operadoresMat -> TIMES
-Rule 29    operadoresMat -> DIVIDE
-Rule 30    operadoresComp -> MORETHAN
-Rule 31    operadoresComp -> LESSTHAN
-Rule 32    operadoresComp -> GQUAL
-Rule 33    operadoresComp -> LQUAL
-Rule 34    operadoresComp -> NOTEQUALS
-Rule 35    operadoresComp -> EQUALS
-Rule 36    valor -> NUMBER
-Rule 37    valor -> ID
-Rule 38    tipoPrimitivo -> tipoNumeric
-Rule 39    tipoPrimitivo -> tipoString
-Rule 40    tipoNumeric -> NUM
-Rule 41    tipoNumeric -> INT
-Rule 42    tipoNumeric -> DOUBLE
-Rule 43    tipoString -> STRING
-Rule 44    tipoString -> VAR
-Rule 45    tipoString -> DYNAMIC
+Rule 0     S' -> sentencia
+Rule 1     sentencia -> cuerpo
+Rule 2     sentencia -> cuerpo sentencia
+Rule 3     cuerpo -> asignacion
+Rule 4     cuerpo -> expresion
+Rule 5     cuerpo -> comparacion
+Rule 6     cuerpo -> sentenciasConditional
+Rule 7     cuerpo -> sentenciasIterativas
+Rule 8     cuerpo -> funciones
+Rule 9     funciones -> declararFunc
+Rule 10    funciones -> usarFunc
+Rule 11    declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+Rule 12    cuerpoBloque -> cuerpo
+Rule 13    cuerpoBloque -> cuerpo cuerpoBloque
+Rule 14    usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+Rule 15    sentenciasConditional -> sentenciaif
+Rule 16    sentenciasConditional -> sentenciaelseif
+Rule 17    sentenciasConditional -> sentenciaelse
+Rule 18    sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+Rule 19    sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+Rule 20    sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE
+Rule 21    sentenciasIterativas -> sentenciafor
+Rule 22    sentenciasIterativas -> sentenciawhile
+Rule 23    incremDecrem -> ID PLUS PLUS
+Rule 24    incremDecrem -> ID MINUS MINUS
+Rule 25    sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+Rule 26    sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+Rule 27    asignacion -> asignacionNumerica
+Rule 28    asignacion -> asignacionString
+Rule 29    asignacion -> asignacionBoolean
+Rule 30    asignacion -> asignacionEstructuraDatos
+Rule 31    asignacionEstructuraDatos -> asignacionList
+Rule 32    asignacionEstructuraDatos -> asignacionSet
+Rule 33    asignacionEstructuraDatos -> asignacionMap
+Rule 34    asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+Rule 35    asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+Rule 36    asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+Rule 37    asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON
+Rule 38    asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON
+Rule 39    asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON
+Rule 40    expresion -> valor
+Rule 41    expresionString -> STRINGVAL
+Rule 42    comparacion -> valor operadoresComp expresion
+Rule 43    expresion -> valor operadoresMat expresion
+Rule 44    expresionBoolean -> TRUE
+Rule 45    expresionBoolean -> FALSE
+Rule 46    operadoresMat -> MINUS
+Rule 47    operadoresMat -> PLUS
+Rule 48    operadoresMat -> TIMES
+Rule 49    operadoresMat -> DIVIDE
+Rule 50    operadoresComp -> MORETHAN
+Rule 51    operadoresComp -> LESSTHAN
+Rule 52    operadoresComp -> GQUAL
+Rule 53    operadoresComp -> LQUAL
+Rule 54    operadoresComp -> NOTEQUALS
+Rule 55    operadoresComp -> EQUALS
+Rule 56    valor -> NUMBER
+Rule 57    valor -> ID
+Rule 58    tipoPrimitivo -> tipoNumeric
+Rule 59    tipoPrimitivo -> tipoString
+Rule 60    tipoNumeric -> NUM
+Rule 61    tipoNumeric -> INT
+Rule 62    tipoNumeric -> DOUBLE
+Rule 63    tipoString -> STRING
+Rule 64    tipoString -> VAR
+Rule 65    tipoString -> DYNAMIC
 
 Terminals, with rules where they appear
 
 ADD                  : 
-ASSIGN               : 19
-BOOL                 : 
-COLON                : 10
-COMMA                : 20
-DIVIDE               : 29
-DOUBLE               : 42
-DYNAMIC              : 45
-ELSE                 : 
-EQUALS               : 35
-FALSE                : 25
-FOR                  : 
-GQUAL                : 32
-ID                   : 8 18 19 20 37
-IF                   : 10
-INT                  : 41
-LBRACE               : 8
+ASSIGN               : 35 37 38 39
+BOOL                 : 37
+COLON                : 
+COMMA                : 36
+DIVIDE               : 49
+DOUBLE               : 62
+DYNAMIC              : 65
+ELSE                 : 19 20
+EQUALS               : 55
+FALSE                : 45
+FOR                  : 25
+GQUAL                : 52
+ID                   : 11 23 24 34 35 36 37 38 39 57
+IF                   : 18 19
+INT                  : 61
+LBRACE               : 11 18 19 20 25 26
 LDQMARK              : 
-LESSTHAN             : 18 20 31
-LIST                 : 18
-LPAREN               : 8 9 10 19
-LQUAL                : 33
-MAP                  : 20
-MINUS                : 26
-MORETHAN             : 18 20 30
-NEW                  : 19
-NOTEQUALS            : 34
-NUM                  : 40
-NUMBER               : 36
-PLUS                 : 27
-PRINT                : 9
+LESSTHAN             : 34 36 51
+LIST                 : 34
+LPAREN               : 11 14 18 19 25 26 35
+LQUAL                : 53
+MAP                  : 36
+MINUS                : 24 24 46
+MORETHAN             : 34 36 50
+NEW                  : 35
+NOTEQUALS            : 54
+NUM                  : 60
+NUMBER               : 56
+PLUS                 : 23 23 47
+PRINT                : 14
 PUNTO                : 
-RBRACE               : 8
+RBRACE               : 11 18 19 20 25 26
 RDQMARK              : 
-RPAREN               : 8 9 10 19
-SEMICOLON            : 9 18 19 20
-SET                  : 19 19
+RPAREN               : 11 14 18 19 25 26 35
+SEMICOLON            : 14 25 34 35 36 37 38 39
+SET                  : 35 35
 SQMARK               : 
-STRING               : 43
-STRINGVAL            : 9 21
-TIMES                : 28
-TRUE                 : 24
-VAR                  : 44
-VOID                 : 8
-WHILE                : 
+STRING               : 63
+STRINGVAL            : 14 41
+TIMES                : 48
+TRUE                 : 44
+VAR                  : 64
+VOID                 : 11
+WHILE                : 26
 error                : 
 
 Nonterminals, with rules where they appear
 
-asignacion           : 1
-asignacionBoolean    : 13
-asignacionEstructuraDatos : 14
-asignacionList       : 15
-asignacionMap        : 17
-asignacionNumerica   : 11
-asignacionSet        : 16
-asignacionString     : 12
-comparacion          : 3 10
-cuerpo               : 8 10 0
-declararFunc         : 6
-expresion            : 2 22 23
-expresionBoolean     : 
-expresionString      : 
-funciones            : 5
-operadoresComp       : 22
-operadoresMat        : 23
-sentenciaif          : 4
-tipoNumeric          : 38
-tipoPrimitivo        : 18 20 20
-tipoString           : 39
-usarFunc             : 7
-valor                : 22 23
+asignacion           : 3 25
+asignacionBoolean    : 29
+asignacionEstructuraDatos : 30
+asignacionList       : 31
+asignacionMap        : 33
+asignacionNumerica   : 27
+asignacionSet        : 32
+asignacionString     : 28
+comparacion          : 5 18 19 25 26
+cuerpo               : 1 2 12 13
+cuerpoBloque         : 11 13 18 19 20 25 26
+declararFunc         : 9
+expresion            : 4 38 42 43
+expresionBoolean     : 37
+expresionString      : 39
+funciones            : 8
+incremDecrem         : 25
+operadoresComp       : 42
+operadoresMat        : 43
+sentencia            : 2 0
+sentenciaelse        : 17
+sentenciaelseif      : 16
+sentenciafor         : 21
+sentenciaif          : 15
+sentenciasConditional : 6
+sentenciasIterativas : 7
+sentenciawhile       : 22
+tipoNumeric          : 38 58
+tipoPrimitivo        : 34 36 36
+tipoString           : 39 59
+usarFunc             : 10
+valor                : 40 42 43
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . sentencia
+    (1) sentencia -> . cuerpo
+    (2) sentencia -> . cuerpo sentencia
+    (3) cuerpo -> . asignacion
+    (4) cuerpo -> . expresion
+    (5) cuerpo -> . comparacion
+    (6) cuerpo -> . sentenciasConditional
+    (7) cuerpo -> . sentenciasIterativas
+    (8) cuerpo -> . funciones
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (42) comparacion -> . valor operadoresComp expresion
+    (15) sentenciasConditional -> . sentenciaif
+    (16) sentenciasConditional -> . sentenciaelseif
+    (17) sentenciasConditional -> . sentenciaelse
+    (21) sentenciasIterativas -> . sentenciafor
+    (22) sentenciasIterativas -> . sentenciawhile
+    (9) funciones -> . declararFunc
+    (10) funciones -> . usarFunc
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+    (18) sentenciaif -> . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (19) sentenciaelseif -> . ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> . ELSE LBRACE cuerpoBloque RBRACE
+    (25) sentenciafor -> . FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (26) sentenciawhile -> . WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (11) declararFunc -> . VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+    (14) usarFunc -> . PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    BOOL            shift and go to state 24
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+    IF              shift and go to state 29
+    ELSE            shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    VOID            shift and go to state 33
+    PRINT           shift and go to state 34
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    sentencia                      shift and go to state 1
+    cuerpo                         shift and go to state 2
+    asignacion                     shift and go to state 3
+    expresion                      shift and go to state 4
+    comparacion                    shift and go to state 5
+    sentenciasConditional          shift and go to state 6
+    sentenciasIterativas           shift and go to state 7
+    funciones                      shift and go to state 8
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    valor                          shift and go to state 13
+    sentenciaif                    shift and go to state 14
+    sentenciaelseif                shift and go to state 15
+    sentenciaelse                  shift and go to state 16
+    sentenciafor                   shift and go to state 17
+    sentenciawhile                 shift and go to state 18
+    declararFunc                   shift and go to state 19
+    usarFunc                       shift and go to state 20
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 1
+
+    (0) S' -> sentencia .
+
+
+
+state 2
+
+    (1) sentencia -> cuerpo .
+    (2) sentencia -> cuerpo . sentencia
+    (1) sentencia -> . cuerpo
+    (2) sentencia -> . cuerpo sentencia
+    (3) cuerpo -> . asignacion
+    (4) cuerpo -> . expresion
+    (5) cuerpo -> . comparacion
+    (6) cuerpo -> . sentenciasConditional
+    (7) cuerpo -> . sentenciasIterativas
+    (8) cuerpo -> . funciones
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (42) comparacion -> . valor operadoresComp expresion
+    (15) sentenciasConditional -> . sentenciaif
+    (16) sentenciasConditional -> . sentenciaelseif
+    (17) sentenciasConditional -> . sentenciaelse
+    (21) sentenciasIterativas -> . sentenciafor
+    (22) sentenciasIterativas -> . sentenciawhile
+    (9) funciones -> . declararFunc
+    (10) funciones -> . usarFunc
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+    (18) sentenciaif -> . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (19) sentenciaelseif -> . ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> . ELSE LBRACE cuerpoBloque RBRACE
+    (25) sentenciafor -> . FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (26) sentenciawhile -> . WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (11) declararFunc -> . VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+    (14) usarFunc -> . PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    $end            reduce using rule 1 (sentencia -> cuerpo .)
+    BOOL            shift and go to state 24
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+    IF              shift and go to state 29
+    ELSE            shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    VOID            shift and go to state 33
+    PRINT           shift and go to state 34
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    cuerpo                         shift and go to state 2
+    sentencia                      shift and go to state 44
+    asignacion                     shift and go to state 3
+    expresion                      shift and go to state 4
+    comparacion                    shift and go to state 5
+    sentenciasConditional          shift and go to state 6
+    sentenciasIterativas           shift and go to state 7
+    funciones                      shift and go to state 8
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    valor                          shift and go to state 13
+    sentenciaif                    shift and go to state 14
+    sentenciaelseif                shift and go to state 15
+    sentenciaelse                  shift and go to state 16
+    sentenciafor                   shift and go to state 17
+    sentenciawhile                 shift and go to state 18
+    declararFunc                   shift and go to state 19
+    usarFunc                       shift and go to state 20
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 3
+
+    (3) cuerpo -> asignacion .
+
+    BOOL            reduce using rule 3 (cuerpo -> asignacion .)
+    NUMBER          reduce using rule 3 (cuerpo -> asignacion .)
+    ID              reduce using rule 3 (cuerpo -> asignacion .)
+    IF              reduce using rule 3 (cuerpo -> asignacion .)
+    ELSE            reduce using rule 3 (cuerpo -> asignacion .)
+    FOR             reduce using rule 3 (cuerpo -> asignacion .)
+    WHILE           reduce using rule 3 (cuerpo -> asignacion .)
+    VOID            reduce using rule 3 (cuerpo -> asignacion .)
+    PRINT           reduce using rule 3 (cuerpo -> asignacion .)
+    NUM             reduce using rule 3 (cuerpo -> asignacion .)
+    INT             reduce using rule 3 (cuerpo -> asignacion .)
+    DOUBLE          reduce using rule 3 (cuerpo -> asignacion .)
+    STRING          reduce using rule 3 (cuerpo -> asignacion .)
+    VAR             reduce using rule 3 (cuerpo -> asignacion .)
+    DYNAMIC         reduce using rule 3 (cuerpo -> asignacion .)
+    LIST            reduce using rule 3 (cuerpo -> asignacion .)
+    SET             reduce using rule 3 (cuerpo -> asignacion .)
+    MAP             reduce using rule 3 (cuerpo -> asignacion .)
+    $end            reduce using rule 3 (cuerpo -> asignacion .)
+    RBRACE          reduce using rule 3 (cuerpo -> asignacion .)
+
+
+state 4
+
+    (4) cuerpo -> expresion .
+
+    BOOL            reduce using rule 4 (cuerpo -> expresion .)
+    NUMBER          reduce using rule 4 (cuerpo -> expresion .)
+    ID              reduce using rule 4 (cuerpo -> expresion .)
+    IF              reduce using rule 4 (cuerpo -> expresion .)
+    ELSE            reduce using rule 4 (cuerpo -> expresion .)
+    FOR             reduce using rule 4 (cuerpo -> expresion .)
+    WHILE           reduce using rule 4 (cuerpo -> expresion .)
+    VOID            reduce using rule 4 (cuerpo -> expresion .)
+    PRINT           reduce using rule 4 (cuerpo -> expresion .)
+    NUM             reduce using rule 4 (cuerpo -> expresion .)
+    INT             reduce using rule 4 (cuerpo -> expresion .)
+    DOUBLE          reduce using rule 4 (cuerpo -> expresion .)
+    STRING          reduce using rule 4 (cuerpo -> expresion .)
+    VAR             reduce using rule 4 (cuerpo -> expresion .)
+    DYNAMIC         reduce using rule 4 (cuerpo -> expresion .)
+    LIST            reduce using rule 4 (cuerpo -> expresion .)
+    SET             reduce using rule 4 (cuerpo -> expresion .)
+    MAP             reduce using rule 4 (cuerpo -> expresion .)
+    $end            reduce using rule 4 (cuerpo -> expresion .)
+    RBRACE          reduce using rule 4 (cuerpo -> expresion .)
+
+
+state 5
+
+    (5) cuerpo -> comparacion .
+
+    BOOL            reduce using rule 5 (cuerpo -> comparacion .)
+    NUMBER          reduce using rule 5 (cuerpo -> comparacion .)
+    ID              reduce using rule 5 (cuerpo -> comparacion .)
+    IF              reduce using rule 5 (cuerpo -> comparacion .)
+    ELSE            reduce using rule 5 (cuerpo -> comparacion .)
+    FOR             reduce using rule 5 (cuerpo -> comparacion .)
+    WHILE           reduce using rule 5 (cuerpo -> comparacion .)
+    VOID            reduce using rule 5 (cuerpo -> comparacion .)
+    PRINT           reduce using rule 5 (cuerpo -> comparacion .)
+    NUM             reduce using rule 5 (cuerpo -> comparacion .)
+    INT             reduce using rule 5 (cuerpo -> comparacion .)
+    DOUBLE          reduce using rule 5 (cuerpo -> comparacion .)
+    STRING          reduce using rule 5 (cuerpo -> comparacion .)
+    VAR             reduce using rule 5 (cuerpo -> comparacion .)
+    DYNAMIC         reduce using rule 5 (cuerpo -> comparacion .)
+    LIST            reduce using rule 5 (cuerpo -> comparacion .)
+    SET             reduce using rule 5 (cuerpo -> comparacion .)
+    MAP             reduce using rule 5 (cuerpo -> comparacion .)
+    $end            reduce using rule 5 (cuerpo -> comparacion .)
+    RBRACE          reduce using rule 5 (cuerpo -> comparacion .)
+
+
+state 6
+
+    (6) cuerpo -> sentenciasConditional .
+
+    BOOL            reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    NUMBER          reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    ID              reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    IF              reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    ELSE            reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    FOR             reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    WHILE           reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    VOID            reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    PRINT           reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    NUM             reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    INT             reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    DOUBLE          reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    STRING          reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    VAR             reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    DYNAMIC         reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    LIST            reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    SET             reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    MAP             reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    $end            reduce using rule 6 (cuerpo -> sentenciasConditional .)
+    RBRACE          reduce using rule 6 (cuerpo -> sentenciasConditional .)
+
+
+state 7
+
+    (7) cuerpo -> sentenciasIterativas .
+
+    BOOL            reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    NUMBER          reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    ID              reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    IF              reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    ELSE            reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    FOR             reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    WHILE           reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    VOID            reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    PRINT           reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    NUM             reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    INT             reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    DOUBLE          reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    STRING          reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    VAR             reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    DYNAMIC         reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    LIST            reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    SET             reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    MAP             reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    $end            reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+    RBRACE          reduce using rule 7 (cuerpo -> sentenciasIterativas .)
+
+
+state 8
+
+    (8) cuerpo -> funciones .
+
+    BOOL            reduce using rule 8 (cuerpo -> funciones .)
+    NUMBER          reduce using rule 8 (cuerpo -> funciones .)
+    ID              reduce using rule 8 (cuerpo -> funciones .)
+    IF              reduce using rule 8 (cuerpo -> funciones .)
+    ELSE            reduce using rule 8 (cuerpo -> funciones .)
+    FOR             reduce using rule 8 (cuerpo -> funciones .)
+    WHILE           reduce using rule 8 (cuerpo -> funciones .)
+    VOID            reduce using rule 8 (cuerpo -> funciones .)
+    PRINT           reduce using rule 8 (cuerpo -> funciones .)
+    NUM             reduce using rule 8 (cuerpo -> funciones .)
+    INT             reduce using rule 8 (cuerpo -> funciones .)
+    DOUBLE          reduce using rule 8 (cuerpo -> funciones .)
+    STRING          reduce using rule 8 (cuerpo -> funciones .)
+    VAR             reduce using rule 8 (cuerpo -> funciones .)
+    DYNAMIC         reduce using rule 8 (cuerpo -> funciones .)
+    LIST            reduce using rule 8 (cuerpo -> funciones .)
+    SET             reduce using rule 8 (cuerpo -> funciones .)
+    MAP             reduce using rule 8 (cuerpo -> funciones .)
+    $end            reduce using rule 8 (cuerpo -> funciones .)
+    RBRACE          reduce using rule 8 (cuerpo -> funciones .)
+
+
+state 9
+
+    (27) asignacion -> asignacionNumerica .
+
+    BOOL            reduce using rule 27 (asignacion -> asignacionNumerica .)
+    NUMBER          reduce using rule 27 (asignacion -> asignacionNumerica .)
+    ID              reduce using rule 27 (asignacion -> asignacionNumerica .)
+    IF              reduce using rule 27 (asignacion -> asignacionNumerica .)
+    ELSE            reduce using rule 27 (asignacion -> asignacionNumerica .)
+    FOR             reduce using rule 27 (asignacion -> asignacionNumerica .)
+    WHILE           reduce using rule 27 (asignacion -> asignacionNumerica .)
+    VOID            reduce using rule 27 (asignacion -> asignacionNumerica .)
+    PRINT           reduce using rule 27 (asignacion -> asignacionNumerica .)
+    NUM             reduce using rule 27 (asignacion -> asignacionNumerica .)
+    INT             reduce using rule 27 (asignacion -> asignacionNumerica .)
+    DOUBLE          reduce using rule 27 (asignacion -> asignacionNumerica .)
+    STRING          reduce using rule 27 (asignacion -> asignacionNumerica .)
+    VAR             reduce using rule 27 (asignacion -> asignacionNumerica .)
+    DYNAMIC         reduce using rule 27 (asignacion -> asignacionNumerica .)
+    LIST            reduce using rule 27 (asignacion -> asignacionNumerica .)
+    SET             reduce using rule 27 (asignacion -> asignacionNumerica .)
+    MAP             reduce using rule 27 (asignacion -> asignacionNumerica .)
+    $end            reduce using rule 27 (asignacion -> asignacionNumerica .)
+    RBRACE          reduce using rule 27 (asignacion -> asignacionNumerica .)
+
+
+state 10
+
+    (28) asignacion -> asignacionString .
+
+    BOOL            reduce using rule 28 (asignacion -> asignacionString .)
+    NUMBER          reduce using rule 28 (asignacion -> asignacionString .)
+    ID              reduce using rule 28 (asignacion -> asignacionString .)
+    IF              reduce using rule 28 (asignacion -> asignacionString .)
+    ELSE            reduce using rule 28 (asignacion -> asignacionString .)
+    FOR             reduce using rule 28 (asignacion -> asignacionString .)
+    WHILE           reduce using rule 28 (asignacion -> asignacionString .)
+    VOID            reduce using rule 28 (asignacion -> asignacionString .)
+    PRINT           reduce using rule 28 (asignacion -> asignacionString .)
+    NUM             reduce using rule 28 (asignacion -> asignacionString .)
+    INT             reduce using rule 28 (asignacion -> asignacionString .)
+    DOUBLE          reduce using rule 28 (asignacion -> asignacionString .)
+    STRING          reduce using rule 28 (asignacion -> asignacionString .)
+    VAR             reduce using rule 28 (asignacion -> asignacionString .)
+    DYNAMIC         reduce using rule 28 (asignacion -> asignacionString .)
+    LIST            reduce using rule 28 (asignacion -> asignacionString .)
+    SET             reduce using rule 28 (asignacion -> asignacionString .)
+    MAP             reduce using rule 28 (asignacion -> asignacionString .)
+    $end            reduce using rule 28 (asignacion -> asignacionString .)
+    RBRACE          reduce using rule 28 (asignacion -> asignacionString .)
+
+
+state 11
+
+    (29) asignacion -> asignacionBoolean .
+
+    BOOL            reduce using rule 29 (asignacion -> asignacionBoolean .)
+    NUMBER          reduce using rule 29 (asignacion -> asignacionBoolean .)
+    ID              reduce using rule 29 (asignacion -> asignacionBoolean .)
+    IF              reduce using rule 29 (asignacion -> asignacionBoolean .)
+    ELSE            reduce using rule 29 (asignacion -> asignacionBoolean .)
+    FOR             reduce using rule 29 (asignacion -> asignacionBoolean .)
+    WHILE           reduce using rule 29 (asignacion -> asignacionBoolean .)
+    VOID            reduce using rule 29 (asignacion -> asignacionBoolean .)
+    PRINT           reduce using rule 29 (asignacion -> asignacionBoolean .)
+    NUM             reduce using rule 29 (asignacion -> asignacionBoolean .)
+    INT             reduce using rule 29 (asignacion -> asignacionBoolean .)
+    DOUBLE          reduce using rule 29 (asignacion -> asignacionBoolean .)
+    STRING          reduce using rule 29 (asignacion -> asignacionBoolean .)
+    VAR             reduce using rule 29 (asignacion -> asignacionBoolean .)
+    DYNAMIC         reduce using rule 29 (asignacion -> asignacionBoolean .)
+    LIST            reduce using rule 29 (asignacion -> asignacionBoolean .)
+    SET             reduce using rule 29 (asignacion -> asignacionBoolean .)
+    MAP             reduce using rule 29 (asignacion -> asignacionBoolean .)
+    $end            reduce using rule 29 (asignacion -> asignacionBoolean .)
+    RBRACE          reduce using rule 29 (asignacion -> asignacionBoolean .)
+
+
+state 12
+
+    (30) asignacion -> asignacionEstructuraDatos .
+
+    BOOL            reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    NUMBER          reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    ID              reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    IF              reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    ELSE            reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    FOR             reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    WHILE           reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    VOID            reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    PRINT           reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    NUM             reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    INT             reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    DOUBLE          reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    STRING          reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    VAR             reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    DYNAMIC         reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    LIST            reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    SET             reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    MAP             reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    $end            reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+    RBRACE          reduce using rule 30 (asignacion -> asignacionEstructuraDatos .)
+
+
+state 13
+
+    (40) expresion -> valor .
+    (43) expresion -> valor . operadoresMat expresion
+    (42) comparacion -> valor . operadoresComp expresion
+    (46) operadoresMat -> . MINUS
+    (47) operadoresMat -> . PLUS
+    (48) operadoresMat -> . TIMES
+    (49) operadoresMat -> . DIVIDE
+    (50) operadoresComp -> . MORETHAN
+    (51) operadoresComp -> . LESSTHAN
+    (52) operadoresComp -> . GQUAL
+    (53) operadoresComp -> . LQUAL
+    (54) operadoresComp -> . NOTEQUALS
+    (55) operadoresComp -> . EQUALS
+
+    BOOL            reduce using rule 40 (expresion -> valor .)
+    NUMBER          reduce using rule 40 (expresion -> valor .)
+    ID              reduce using rule 40 (expresion -> valor .)
+    IF              reduce using rule 40 (expresion -> valor .)
+    ELSE            reduce using rule 40 (expresion -> valor .)
+    FOR             reduce using rule 40 (expresion -> valor .)
+    WHILE           reduce using rule 40 (expresion -> valor .)
+    VOID            reduce using rule 40 (expresion -> valor .)
+    PRINT           reduce using rule 40 (expresion -> valor .)
+    NUM             reduce using rule 40 (expresion -> valor .)
+    INT             reduce using rule 40 (expresion -> valor .)
+    DOUBLE          reduce using rule 40 (expresion -> valor .)
+    STRING          reduce using rule 40 (expresion -> valor .)
+    VAR             reduce using rule 40 (expresion -> valor .)
+    DYNAMIC         reduce using rule 40 (expresion -> valor .)
+    LIST            reduce using rule 40 (expresion -> valor .)
+    SET             reduce using rule 40 (expresion -> valor .)
+    MAP             reduce using rule 40 (expresion -> valor .)
+    $end            reduce using rule 40 (expresion -> valor .)
+    RBRACE          reduce using rule 40 (expresion -> valor .)
+    MINUS           shift and go to state 47
+    PLUS            shift and go to state 48
+    TIMES           shift and go to state 49
+    DIVIDE          shift and go to state 50
+    MORETHAN        shift and go to state 51
+    LESSTHAN        shift and go to state 52
+    GQUAL           shift and go to state 53
+    LQUAL           shift and go to state 54
+    NOTEQUALS       shift and go to state 55
+    EQUALS          shift and go to state 56
+
+    operadoresMat                  shift and go to state 45
+    operadoresComp                 shift and go to state 46
+
+state 14
+
+    (15) sentenciasConditional -> sentenciaif .
+
+    BOOL            reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    NUMBER          reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    ID              reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    IF              reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    ELSE            reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    FOR             reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    WHILE           reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    VOID            reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    PRINT           reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    NUM             reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    INT             reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    DOUBLE          reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    STRING          reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    VAR             reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    DYNAMIC         reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    LIST            reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    SET             reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    MAP             reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    $end            reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+    RBRACE          reduce using rule 15 (sentenciasConditional -> sentenciaif .)
+
+
+state 15
+
+    (16) sentenciasConditional -> sentenciaelseif .
+
+    BOOL            reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    NUMBER          reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    ID              reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    IF              reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    ELSE            reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    FOR             reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    WHILE           reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    VOID            reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    PRINT           reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    NUM             reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    INT             reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    DOUBLE          reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    STRING          reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    VAR             reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    DYNAMIC         reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    LIST            reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    SET             reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    MAP             reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    $end            reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+    RBRACE          reduce using rule 16 (sentenciasConditional -> sentenciaelseif .)
+
+
+state 16
+
+    (17) sentenciasConditional -> sentenciaelse .
+
+    BOOL            reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    NUMBER          reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    ID              reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    IF              reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    ELSE            reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    FOR             reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    WHILE           reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    VOID            reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    PRINT           reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    NUM             reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    INT             reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    DOUBLE          reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    STRING          reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    VAR             reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    DYNAMIC         reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    LIST            reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    SET             reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    MAP             reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    $end            reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+    RBRACE          reduce using rule 17 (sentenciasConditional -> sentenciaelse .)
+
+
+state 17
+
+    (21) sentenciasIterativas -> sentenciafor .
+
+    BOOL            reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    NUMBER          reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    ID              reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    IF              reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    ELSE            reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    FOR             reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    WHILE           reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    VOID            reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    PRINT           reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    NUM             reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    INT             reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    DOUBLE          reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    STRING          reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    VAR             reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    DYNAMIC         reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    LIST            reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    SET             reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    MAP             reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    $end            reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+    RBRACE          reduce using rule 21 (sentenciasIterativas -> sentenciafor .)
+
+
+state 18
+
+    (22) sentenciasIterativas -> sentenciawhile .
+
+    BOOL            reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    NUMBER          reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    ID              reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    IF              reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    ELSE            reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    FOR             reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    WHILE           reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    VOID            reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    PRINT           reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    NUM             reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    INT             reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    DOUBLE          reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    STRING          reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    VAR             reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    DYNAMIC         reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    LIST            reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    SET             reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    MAP             reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    $end            reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+    RBRACE          reduce using rule 22 (sentenciasIterativas -> sentenciawhile .)
+
+
+state 19
+
+    (9) funciones -> declararFunc .
+
+    BOOL            reduce using rule 9 (funciones -> declararFunc .)
+    NUMBER          reduce using rule 9 (funciones -> declararFunc .)
+    ID              reduce using rule 9 (funciones -> declararFunc .)
+    IF              reduce using rule 9 (funciones -> declararFunc .)
+    ELSE            reduce using rule 9 (funciones -> declararFunc .)
+    FOR             reduce using rule 9 (funciones -> declararFunc .)
+    WHILE           reduce using rule 9 (funciones -> declararFunc .)
+    VOID            reduce using rule 9 (funciones -> declararFunc .)
+    PRINT           reduce using rule 9 (funciones -> declararFunc .)
+    NUM             reduce using rule 9 (funciones -> declararFunc .)
+    INT             reduce using rule 9 (funciones -> declararFunc .)
+    DOUBLE          reduce using rule 9 (funciones -> declararFunc .)
+    STRING          reduce using rule 9 (funciones -> declararFunc .)
+    VAR             reduce using rule 9 (funciones -> declararFunc .)
+    DYNAMIC         reduce using rule 9 (funciones -> declararFunc .)
+    LIST            reduce using rule 9 (funciones -> declararFunc .)
+    SET             reduce using rule 9 (funciones -> declararFunc .)
+    MAP             reduce using rule 9 (funciones -> declararFunc .)
+    $end            reduce using rule 9 (funciones -> declararFunc .)
+    RBRACE          reduce using rule 9 (funciones -> declararFunc .)
+
+
+state 20
+
+    (10) funciones -> usarFunc .
+
+    BOOL            reduce using rule 10 (funciones -> usarFunc .)
+    NUMBER          reduce using rule 10 (funciones -> usarFunc .)
+    ID              reduce using rule 10 (funciones -> usarFunc .)
+    IF              reduce using rule 10 (funciones -> usarFunc .)
+    ELSE            reduce using rule 10 (funciones -> usarFunc .)
+    FOR             reduce using rule 10 (funciones -> usarFunc .)
+    WHILE           reduce using rule 10 (funciones -> usarFunc .)
+    VOID            reduce using rule 10 (funciones -> usarFunc .)
+    PRINT           reduce using rule 10 (funciones -> usarFunc .)
+    NUM             reduce using rule 10 (funciones -> usarFunc .)
+    INT             reduce using rule 10 (funciones -> usarFunc .)
+    DOUBLE          reduce using rule 10 (funciones -> usarFunc .)
+    STRING          reduce using rule 10 (funciones -> usarFunc .)
+    VAR             reduce using rule 10 (funciones -> usarFunc .)
+    DYNAMIC         reduce using rule 10 (funciones -> usarFunc .)
+    LIST            reduce using rule 10 (funciones -> usarFunc .)
+    SET             reduce using rule 10 (funciones -> usarFunc .)
+    MAP             reduce using rule 10 (funciones -> usarFunc .)
+    $end            reduce using rule 10 (funciones -> usarFunc .)
+    RBRACE          reduce using rule 10 (funciones -> usarFunc .)
+
+
+state 21
+
+    (38) asignacionNumerica -> tipoNumeric . ID ASSIGN expresion SEMICOLON
+
+    ID              shift and go to state 57
+
+
+state 22
+
+    (57) valor -> ID .
+
+    MINUS           reduce using rule 57 (valor -> ID .)
+    PLUS            reduce using rule 57 (valor -> ID .)
+    TIMES           reduce using rule 57 (valor -> ID .)
+    DIVIDE          reduce using rule 57 (valor -> ID .)
+    MORETHAN        reduce using rule 57 (valor -> ID .)
+    LESSTHAN        reduce using rule 57 (valor -> ID .)
+    GQUAL           reduce using rule 57 (valor -> ID .)
+    LQUAL           reduce using rule 57 (valor -> ID .)
+    NOTEQUALS       reduce using rule 57 (valor -> ID .)
+    EQUALS          reduce using rule 57 (valor -> ID .)
+    BOOL            reduce using rule 57 (valor -> ID .)
+    NUMBER          reduce using rule 57 (valor -> ID .)
+    ID              reduce using rule 57 (valor -> ID .)
+    IF              reduce using rule 57 (valor -> ID .)
+    ELSE            reduce using rule 57 (valor -> ID .)
+    FOR             reduce using rule 57 (valor -> ID .)
+    WHILE           reduce using rule 57 (valor -> ID .)
+    VOID            reduce using rule 57 (valor -> ID .)
+    PRINT           reduce using rule 57 (valor -> ID .)
+    NUM             reduce using rule 57 (valor -> ID .)
+    INT             reduce using rule 57 (valor -> ID .)
+    DOUBLE          reduce using rule 57 (valor -> ID .)
+    STRING          reduce using rule 57 (valor -> ID .)
+    VAR             reduce using rule 57 (valor -> ID .)
+    DYNAMIC         reduce using rule 57 (valor -> ID .)
+    LIST            reduce using rule 57 (valor -> ID .)
+    SET             reduce using rule 57 (valor -> ID .)
+    MAP             reduce using rule 57 (valor -> ID .)
+    $end            reduce using rule 57 (valor -> ID .)
+    RPAREN          reduce using rule 57 (valor -> ID .)
+    RBRACE          reduce using rule 57 (valor -> ID .)
+    SEMICOLON       reduce using rule 57 (valor -> ID .)
+
+
+state 23
+
+    (39) asignacionString -> tipoString . ID ASSIGN expresionString SEMICOLON
+
+    ID              shift and go to state 58
+
+
+state 24
+
+    (37) asignacionBoolean -> BOOL . ID ASSIGN expresionBoolean SEMICOLON
+
+    ID              shift and go to state 59
+
+
+state 25
+
+    (31) asignacionEstructuraDatos -> asignacionList .
+
+    BOOL            reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    NUMBER          reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    ID              reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    IF              reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    ELSE            reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    FOR             reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    WHILE           reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    VOID            reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    PRINT           reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    NUM             reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    INT             reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    DOUBLE          reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    STRING          reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    VAR             reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    DYNAMIC         reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    LIST            reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    SET             reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    MAP             reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    $end            reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+    RBRACE          reduce using rule 31 (asignacionEstructuraDatos -> asignacionList .)
+
+
+state 26
+
+    (32) asignacionEstructuraDatos -> asignacionSet .
+
+    BOOL            reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    NUMBER          reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    ID              reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    IF              reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    ELSE            reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    FOR             reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    WHILE           reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    VOID            reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    PRINT           reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    NUM             reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    INT             reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    DOUBLE          reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    STRING          reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    VAR             reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    DYNAMIC         reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    LIST            reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    SET             reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    MAP             reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    $end            reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+    RBRACE          reduce using rule 32 (asignacionEstructuraDatos -> asignacionSet .)
+
+
+state 27
+
+    (33) asignacionEstructuraDatos -> asignacionMap .
+
+    BOOL            reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    NUMBER          reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    ID              reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    IF              reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    ELSE            reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    FOR             reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    WHILE           reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    VOID            reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    PRINT           reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    NUM             reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    INT             reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    DOUBLE          reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    STRING          reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    VAR             reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    DYNAMIC         reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    LIST            reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    SET             reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    MAP             reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    $end            reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+    RBRACE          reduce using rule 33 (asignacionEstructuraDatos -> asignacionMap .)
+
+
+state 28
+
+    (56) valor -> NUMBER .
+
+    MINUS           reduce using rule 56 (valor -> NUMBER .)
+    PLUS            reduce using rule 56 (valor -> NUMBER .)
+    TIMES           reduce using rule 56 (valor -> NUMBER .)
+    DIVIDE          reduce using rule 56 (valor -> NUMBER .)
+    MORETHAN        reduce using rule 56 (valor -> NUMBER .)
+    LESSTHAN        reduce using rule 56 (valor -> NUMBER .)
+    GQUAL           reduce using rule 56 (valor -> NUMBER .)
+    LQUAL           reduce using rule 56 (valor -> NUMBER .)
+    NOTEQUALS       reduce using rule 56 (valor -> NUMBER .)
+    EQUALS          reduce using rule 56 (valor -> NUMBER .)
+    BOOL            reduce using rule 56 (valor -> NUMBER .)
+    NUMBER          reduce using rule 56 (valor -> NUMBER .)
+    ID              reduce using rule 56 (valor -> NUMBER .)
+    IF              reduce using rule 56 (valor -> NUMBER .)
+    ELSE            reduce using rule 56 (valor -> NUMBER .)
+    FOR             reduce using rule 56 (valor -> NUMBER .)
+    WHILE           reduce using rule 56 (valor -> NUMBER .)
+    VOID            reduce using rule 56 (valor -> NUMBER .)
+    PRINT           reduce using rule 56 (valor -> NUMBER .)
+    NUM             reduce using rule 56 (valor -> NUMBER .)
+    INT             reduce using rule 56 (valor -> NUMBER .)
+    DOUBLE          reduce using rule 56 (valor -> NUMBER .)
+    STRING          reduce using rule 56 (valor -> NUMBER .)
+    VAR             reduce using rule 56 (valor -> NUMBER .)
+    DYNAMIC         reduce using rule 56 (valor -> NUMBER .)
+    LIST            reduce using rule 56 (valor -> NUMBER .)
+    SET             reduce using rule 56 (valor -> NUMBER .)
+    MAP             reduce using rule 56 (valor -> NUMBER .)
+    $end            reduce using rule 56 (valor -> NUMBER .)
+    RPAREN          reduce using rule 56 (valor -> NUMBER .)
+    RBRACE          reduce using rule 56 (valor -> NUMBER .)
+    SEMICOLON       reduce using rule 56 (valor -> NUMBER .)
+
+
+state 29
+
+    (18) sentenciaif -> IF . LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+
+    LPAREN          shift and go to state 60
+
+
+state 30
+
+    (19) sentenciaelseif -> ELSE . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> ELSE . LBRACE cuerpoBloque RBRACE
+
+    IF              shift and go to state 61
+    LBRACE          shift and go to state 62
+
+
+state 31
+
+    (25) sentenciafor -> FOR . LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+
+    LPAREN          shift and go to state 63
+
+
+state 32
+
+    (26) sentenciawhile -> WHILE . LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+
+    LPAREN          shift and go to state 64
+
+
+state 33
+
+    (11) declararFunc -> VOID . ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+
+    ID              shift and go to state 65
+
+
+state 34
+
+    (14) usarFunc -> PRINT . LPAREN STRINGVAL RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 66
+
+
+state 35
+
+    (60) tipoNumeric -> NUM .
+
+    ID              reduce using rule 60 (tipoNumeric -> NUM .)
+    MORETHAN        reduce using rule 60 (tipoNumeric -> NUM .)
+    COMMA           reduce using rule 60 (tipoNumeric -> NUM .)
+
+
+state 36
+
+    (61) tipoNumeric -> INT .
+
+    ID              reduce using rule 61 (tipoNumeric -> INT .)
+    MORETHAN        reduce using rule 61 (tipoNumeric -> INT .)
+    COMMA           reduce using rule 61 (tipoNumeric -> INT .)
+
+
+state 37
+
+    (62) tipoNumeric -> DOUBLE .
+
+    ID              reduce using rule 62 (tipoNumeric -> DOUBLE .)
+    MORETHAN        reduce using rule 62 (tipoNumeric -> DOUBLE .)
+    COMMA           reduce using rule 62 (tipoNumeric -> DOUBLE .)
+
+
+state 38
+
+    (63) tipoString -> STRING .
+
+    ID              reduce using rule 63 (tipoString -> STRING .)
+    MORETHAN        reduce using rule 63 (tipoString -> STRING .)
+    COMMA           reduce using rule 63 (tipoString -> STRING .)
+
+
+state 39
+
+    (64) tipoString -> VAR .
+
+    ID              reduce using rule 64 (tipoString -> VAR .)
+    MORETHAN        reduce using rule 64 (tipoString -> VAR .)
+    COMMA           reduce using rule 64 (tipoString -> VAR .)
+
+
+state 40
+
+    (65) tipoString -> DYNAMIC .
+
+    ID              reduce using rule 65 (tipoString -> DYNAMIC .)
+    MORETHAN        reduce using rule 65 (tipoString -> DYNAMIC .)
+    COMMA           reduce using rule 65 (tipoString -> DYNAMIC .)
+
+
+state 41
+
+    (34) asignacionList -> LIST . LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+
+    LESSTHAN        shift and go to state 67
+
+
+state 42
+
+    (35) asignacionSet -> SET . ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+
+    ID              shift and go to state 68
+
+
+state 43
+
+    (36) asignacionMap -> MAP . LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    LESSTHAN        shift and go to state 69
+
+
+state 44
+
+    (2) sentencia -> cuerpo sentencia .
+
+    $end            reduce using rule 2 (sentencia -> cuerpo sentencia .)
+
+
+state 45
+
+    (43) expresion -> valor operadoresMat . expresion
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+
+    valor                          shift and go to state 70
+    expresion                      shift and go to state 71
+
+state 46
+
+    (42) comparacion -> valor operadoresComp . expresion
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+
+    valor                          shift and go to state 70
+    expresion                      shift and go to state 72
+
+state 47
+
+    (46) operadoresMat -> MINUS .
+
+    NUMBER          reduce using rule 46 (operadoresMat -> MINUS .)
+    ID              reduce using rule 46 (operadoresMat -> MINUS .)
+
+
+state 48
+
+    (47) operadoresMat -> PLUS .
+
+    NUMBER          reduce using rule 47 (operadoresMat -> PLUS .)
+    ID              reduce using rule 47 (operadoresMat -> PLUS .)
+
+
+state 49
+
+    (48) operadoresMat -> TIMES .
+
+    NUMBER          reduce using rule 48 (operadoresMat -> TIMES .)
+    ID              reduce using rule 48 (operadoresMat -> TIMES .)
+
+
+state 50
+
+    (49) operadoresMat -> DIVIDE .
+
+    NUMBER          reduce using rule 49 (operadoresMat -> DIVIDE .)
+    ID              reduce using rule 49 (operadoresMat -> DIVIDE .)
+
+
+state 51
+
+    (50) operadoresComp -> MORETHAN .
+
+    NUMBER          reduce using rule 50 (operadoresComp -> MORETHAN .)
+    ID              reduce using rule 50 (operadoresComp -> MORETHAN .)
+
+
+state 52
+
+    (51) operadoresComp -> LESSTHAN .
+
+    NUMBER          reduce using rule 51 (operadoresComp -> LESSTHAN .)
+    ID              reduce using rule 51 (operadoresComp -> LESSTHAN .)
+
+
+state 53
+
+    (52) operadoresComp -> GQUAL .
+
+    NUMBER          reduce using rule 52 (operadoresComp -> GQUAL .)
+    ID              reduce using rule 52 (operadoresComp -> GQUAL .)
+
+
+state 54
+
+    (53) operadoresComp -> LQUAL .
+
+    NUMBER          reduce using rule 53 (operadoresComp -> LQUAL .)
+    ID              reduce using rule 53 (operadoresComp -> LQUAL .)
+
+
+state 55
+
+    (54) operadoresComp -> NOTEQUALS .
+
+    NUMBER          reduce using rule 54 (operadoresComp -> NOTEQUALS .)
+    ID              reduce using rule 54 (operadoresComp -> NOTEQUALS .)
+
+
+state 56
+
+    (55) operadoresComp -> EQUALS .
+
+    NUMBER          reduce using rule 55 (operadoresComp -> EQUALS .)
+    ID              reduce using rule 55 (operadoresComp -> EQUALS .)
+
+
+state 57
+
+    (38) asignacionNumerica -> tipoNumeric ID . ASSIGN expresion SEMICOLON
+
+    ASSIGN          shift and go to state 73
+
+
+state 58
+
+    (39) asignacionString -> tipoString ID . ASSIGN expresionString SEMICOLON
+
+    ASSIGN          shift and go to state 74
+
+
+state 59
+
+    (37) asignacionBoolean -> BOOL ID . ASSIGN expresionBoolean SEMICOLON
+
+    ASSIGN          shift and go to state 75
+
+
+state 60
+
+    (18) sentenciaif -> IF LPAREN . comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (42) comparacion -> . valor operadoresComp expresion
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+
+    comparacion                    shift and go to state 76
+    valor                          shift and go to state 77
+
+state 61
+
+    (19) sentenciaelseif -> ELSE IF . LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+
+    LPAREN          shift and go to state 78
+
+
+state 62
+
+    (20) sentenciaelse -> ELSE LBRACE . cuerpoBloque RBRACE
+    (12) cuerpoBloque -> . cuerpo
+    (13) cuerpoBloque -> . cuerpo cuerpoBloque
+    (3) cuerpo -> . asignacion
+    (4) cuerpo -> . expresion
+    (5) cuerpo -> . comparacion
+    (6) cuerpo -> . sentenciasConditional
+    (7) cuerpo -> . sentenciasIterativas
+    (8) cuerpo -> . funciones
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (42) comparacion -> . valor operadoresComp expresion
+    (15) sentenciasConditional -> . sentenciaif
+    (16) sentenciasConditional -> . sentenciaelseif
+    (17) sentenciasConditional -> . sentenciaelse
+    (21) sentenciasIterativas -> . sentenciafor
+    (22) sentenciasIterativas -> . sentenciawhile
+    (9) funciones -> . declararFunc
+    (10) funciones -> . usarFunc
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+    (18) sentenciaif -> . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (19) sentenciaelseif -> . ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> . ELSE LBRACE cuerpoBloque RBRACE
+    (25) sentenciafor -> . FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (26) sentenciawhile -> . WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (11) declararFunc -> . VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+    (14) usarFunc -> . PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    BOOL            shift and go to state 24
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+    IF              shift and go to state 29
+    ELSE            shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    VOID            shift and go to state 33
+    PRINT           shift and go to state 34
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    cuerpoBloque                   shift and go to state 79
+    cuerpo                         shift and go to state 80
+    asignacion                     shift and go to state 3
+    expresion                      shift and go to state 4
+    comparacion                    shift and go to state 5
+    sentenciasConditional          shift and go to state 6
+    sentenciasIterativas           shift and go to state 7
+    funciones                      shift and go to state 8
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    valor                          shift and go to state 13
+    sentenciaif                    shift and go to state 14
+    sentenciaelseif                shift and go to state 15
+    sentenciaelse                  shift and go to state 16
+    sentenciafor                   shift and go to state 17
+    sentenciawhile                 shift and go to state 18
+    declararFunc                   shift and go to state 19
+    usarFunc                       shift and go to state 20
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 63
+
+    (25) sentenciafor -> FOR LPAREN . asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    BOOL            shift and go to state 24
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    asignacion                     shift and go to state 81
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 64
+
+    (26) sentenciawhile -> WHILE LPAREN . comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (42) comparacion -> . valor operadoresComp expresion
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+
+    comparacion                    shift and go to state 82
+    valor                          shift and go to state 77
+
+state 65
+
+    (11) declararFunc -> VOID ID . LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+
+    LPAREN          shift and go to state 83
+
+
+state 66
+
+    (14) usarFunc -> PRINT LPAREN . STRINGVAL RPAREN SEMICOLON
+
+    STRINGVAL       shift and go to state 84
+
+
+state 67
+
+    (34) asignacionList -> LIST LESSTHAN . tipoPrimitivo MORETHAN ID SEMICOLON
+    (58) tipoPrimitivo -> . tipoNumeric
+    (59) tipoPrimitivo -> . tipoString
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+
+    tipoPrimitivo                  shift and go to state 85
+    tipoNumeric                    shift and go to state 86
+    tipoString                     shift and go to state 87
+
+state 68
+
+    (35) asignacionSet -> SET ID . ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+
+    ASSIGN          shift and go to state 88
+
+
+state 69
+
+    (36) asignacionMap -> MAP LESSTHAN . tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+    (58) tipoPrimitivo -> . tipoNumeric
+    (59) tipoPrimitivo -> . tipoString
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+
+    tipoPrimitivo                  shift and go to state 89
+    tipoNumeric                    shift and go to state 86
+    tipoString                     shift and go to state 87
+
+state 70
+
+    (40) expresion -> valor .
+    (43) expresion -> valor . operadoresMat expresion
+    (46) operadoresMat -> . MINUS
+    (47) operadoresMat -> . PLUS
+    (48) operadoresMat -> . TIMES
+    (49) operadoresMat -> . DIVIDE
+
+    BOOL            reduce using rule 40 (expresion -> valor .)
+    NUMBER          reduce using rule 40 (expresion -> valor .)
+    ID              reduce using rule 40 (expresion -> valor .)
+    IF              reduce using rule 40 (expresion -> valor .)
+    ELSE            reduce using rule 40 (expresion -> valor .)
+    FOR             reduce using rule 40 (expresion -> valor .)
+    WHILE           reduce using rule 40 (expresion -> valor .)
+    VOID            reduce using rule 40 (expresion -> valor .)
+    PRINT           reduce using rule 40 (expresion -> valor .)
+    NUM             reduce using rule 40 (expresion -> valor .)
+    INT             reduce using rule 40 (expresion -> valor .)
+    DOUBLE          reduce using rule 40 (expresion -> valor .)
+    STRING          reduce using rule 40 (expresion -> valor .)
+    VAR             reduce using rule 40 (expresion -> valor .)
+    DYNAMIC         reduce using rule 40 (expresion -> valor .)
+    LIST            reduce using rule 40 (expresion -> valor .)
+    SET             reduce using rule 40 (expresion -> valor .)
+    MAP             reduce using rule 40 (expresion -> valor .)
+    $end            reduce using rule 40 (expresion -> valor .)
+    RPAREN          reduce using rule 40 (expresion -> valor .)
+    RBRACE          reduce using rule 40 (expresion -> valor .)
+    SEMICOLON       reduce using rule 40 (expresion -> valor .)
+    MINUS           shift and go to state 47
+    PLUS            shift and go to state 48
+    TIMES           shift and go to state 49
+    DIVIDE          shift and go to state 50
+
+    operadoresMat                  shift and go to state 45
+
+state 71
+
+    (43) expresion -> valor operadoresMat expresion .
+
+    BOOL            reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    NUMBER          reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    ID              reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    IF              reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    ELSE            reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    FOR             reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    WHILE           reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    VOID            reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    PRINT           reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    NUM             reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    INT             reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    DOUBLE          reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    STRING          reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    VAR             reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    DYNAMIC         reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    LIST            reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    SET             reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    MAP             reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    $end            reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    RPAREN          reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    RBRACE          reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+    SEMICOLON       reduce using rule 43 (expresion -> valor operadoresMat expresion .)
+
+
+state 72
+
+    (42) comparacion -> valor operadoresComp expresion .
+
+    BOOL            reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    NUMBER          reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    ID              reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    IF              reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    ELSE            reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    FOR             reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    WHILE           reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    VOID            reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    PRINT           reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    NUM             reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    INT             reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    DOUBLE          reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    STRING          reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    VAR             reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    DYNAMIC         reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    LIST            reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    SET             reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    MAP             reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    $end            reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    RPAREN          reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    RBRACE          reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+    SEMICOLON       reduce using rule 42 (comparacion -> valor operadoresComp expresion .)
+
+
+state 73
+
+    (38) asignacionNumerica -> tipoNumeric ID ASSIGN . expresion SEMICOLON
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+
+    expresion                      shift and go to state 90
+    valor                          shift and go to state 70
+
+state 74
+
+    (39) asignacionString -> tipoString ID ASSIGN . expresionString SEMICOLON
+    (41) expresionString -> . STRINGVAL
+
+    STRINGVAL       shift and go to state 92
+
+    expresionString                shift and go to state 91
+
+state 75
+
+    (37) asignacionBoolean -> BOOL ID ASSIGN . expresionBoolean SEMICOLON
+    (44) expresionBoolean -> . TRUE
+    (45) expresionBoolean -> . FALSE
+
+    TRUE            shift and go to state 94
+    FALSE           shift and go to state 95
+
+    expresionBoolean               shift and go to state 93
+
+state 76
+
+    (18) sentenciaif -> IF LPAREN comparacion . RPAREN LBRACE cuerpoBloque RBRACE
+
+    RPAREN          shift and go to state 96
+
+
+state 77
+
+    (42) comparacion -> valor . operadoresComp expresion
+    (50) operadoresComp -> . MORETHAN
+    (51) operadoresComp -> . LESSTHAN
+    (52) operadoresComp -> . GQUAL
+    (53) operadoresComp -> . LQUAL
+    (54) operadoresComp -> . NOTEQUALS
+    (55) operadoresComp -> . EQUALS
+
+    MORETHAN        shift and go to state 51
+    LESSTHAN        shift and go to state 52
+    GQUAL           shift and go to state 53
+    LQUAL           shift and go to state 54
+    NOTEQUALS       shift and go to state 55
+    EQUALS          shift and go to state 56
+
+    operadoresComp                 shift and go to state 46
+
+state 78
+
+    (19) sentenciaelseif -> ELSE IF LPAREN . comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (42) comparacion -> . valor operadoresComp expresion
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+
+    comparacion                    shift and go to state 97
+    valor                          shift and go to state 77
+
+state 79
+
+    (20) sentenciaelse -> ELSE LBRACE cuerpoBloque . RBRACE
+
+    RBRACE          shift and go to state 98
+
+
+state 80
+
+    (12) cuerpoBloque -> cuerpo .
+    (13) cuerpoBloque -> cuerpo . cuerpoBloque
+    (12) cuerpoBloque -> . cuerpo
+    (13) cuerpoBloque -> . cuerpo cuerpoBloque
+    (3) cuerpo -> . asignacion
+    (4) cuerpo -> . expresion
+    (5) cuerpo -> . comparacion
+    (6) cuerpo -> . sentenciasConditional
+    (7) cuerpo -> . sentenciasIterativas
+    (8) cuerpo -> . funciones
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (42) comparacion -> . valor operadoresComp expresion
+    (15) sentenciasConditional -> . sentenciaif
+    (16) sentenciasConditional -> . sentenciaelseif
+    (17) sentenciasConditional -> . sentenciaelse
+    (21) sentenciasIterativas -> . sentenciafor
+    (22) sentenciasIterativas -> . sentenciawhile
+    (9) funciones -> . declararFunc
+    (10) funciones -> . usarFunc
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+    (18) sentenciaif -> . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (19) sentenciaelseif -> . ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> . ELSE LBRACE cuerpoBloque RBRACE
+    (25) sentenciafor -> . FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (26) sentenciawhile -> . WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (11) declararFunc -> . VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+    (14) usarFunc -> . PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    RBRACE          reduce using rule 12 (cuerpoBloque -> cuerpo .)
+    BOOL            shift and go to state 24
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+    IF              shift and go to state 29
+    ELSE            shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    VOID            shift and go to state 33
+    PRINT           shift and go to state 34
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    cuerpo                         shift and go to state 80
+    cuerpoBloque                   shift and go to state 99
+    asignacion                     shift and go to state 3
+    expresion                      shift and go to state 4
+    comparacion                    shift and go to state 5
+    sentenciasConditional          shift and go to state 6
+    sentenciasIterativas           shift and go to state 7
+    funciones                      shift and go to state 8
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    valor                          shift and go to state 13
+    sentenciaif                    shift and go to state 14
+    sentenciaelseif                shift and go to state 15
+    sentenciaelse                  shift and go to state 16
+    sentenciafor                   shift and go to state 17
+    sentenciawhile                 shift and go to state 18
+    declararFunc                   shift and go to state 19
+    usarFunc                       shift and go to state 20
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 81
+
+    (25) sentenciafor -> FOR LPAREN asignacion . comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (42) comparacion -> . valor operadoresComp expresion
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+
+    comparacion                    shift and go to state 100
+    valor                          shift and go to state 77
+
+state 82
+
+    (26) sentenciawhile -> WHILE LPAREN comparacion . RPAREN LBRACE cuerpoBloque RBRACE
+
+    RPAREN          shift and go to state 101
+
+
+state 83
+
+    (11) declararFunc -> VOID ID LPAREN . RPAREN LBRACE cuerpoBloque RBRACE
+
+    RPAREN          shift and go to state 102
+
+
+state 84
+
+    (14) usarFunc -> PRINT LPAREN STRINGVAL . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 103
+
+
+state 85
+
+    (34) asignacionList -> LIST LESSTHAN tipoPrimitivo . MORETHAN ID SEMICOLON
+
+    MORETHAN        shift and go to state 104
+
+
+state 86
+
+    (58) tipoPrimitivo -> tipoNumeric .
+
+    MORETHAN        reduce using rule 58 (tipoPrimitivo -> tipoNumeric .)
+    COMMA           reduce using rule 58 (tipoPrimitivo -> tipoNumeric .)
+
+
+state 87
+
+    (59) tipoPrimitivo -> tipoString .
+
+    MORETHAN        reduce using rule 59 (tipoPrimitivo -> tipoString .)
+    COMMA           reduce using rule 59 (tipoPrimitivo -> tipoString .)
+
+
+state 88
+
+    (35) asignacionSet -> SET ID ASSIGN . NEW SET LPAREN RPAREN SEMICOLON
+
+    NEW             shift and go to state 105
+
+
+state 89
+
+    (36) asignacionMap -> MAP LESSTHAN tipoPrimitivo . COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    COMMA           shift and go to state 106
+
+
+state 90
+
+    (38) asignacionNumerica -> tipoNumeric ID ASSIGN expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 107
+
+
+state 91
+
+    (39) asignacionString -> tipoString ID ASSIGN expresionString . SEMICOLON
+
+    SEMICOLON       shift and go to state 108
+
+
+state 92
+
+    (41) expresionString -> STRINGVAL .
+
+    SEMICOLON       reduce using rule 41 (expresionString -> STRINGVAL .)
+
+
+state 93
+
+    (37) asignacionBoolean -> BOOL ID ASSIGN expresionBoolean . SEMICOLON
+
+    SEMICOLON       shift and go to state 109
+
+
+state 94
+
+    (44) expresionBoolean -> TRUE .
+
+    SEMICOLON       reduce using rule 44 (expresionBoolean -> TRUE .)
+
+
+state 95
+
+    (45) expresionBoolean -> FALSE .
+
+    SEMICOLON       reduce using rule 45 (expresionBoolean -> FALSE .)
+
+
+state 96
+
+    (18) sentenciaif -> IF LPAREN comparacion RPAREN . LBRACE cuerpoBloque RBRACE
+
+    LBRACE          shift and go to state 110
+
+
+state 97
+
+    (19) sentenciaelseif -> ELSE IF LPAREN comparacion . RPAREN LBRACE cuerpoBloque RBRACE
+
+    RPAREN          shift and go to state 111
+
+
+state 98
+
+    (20) sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .
+
+    BOOL            reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    NUMBER          reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    ID              reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    IF              reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    ELSE            reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    FOR             reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    WHILE           reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    VOID            reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    PRINT           reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    NUM             reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    INT             reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    DOUBLE          reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    STRING          reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    VAR             reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    DYNAMIC         reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    LIST            reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    SET             reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    MAP             reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    $end            reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+    RBRACE          reduce using rule 20 (sentenciaelse -> ELSE LBRACE cuerpoBloque RBRACE .)
+
+
+state 99
+
+    (13) cuerpoBloque -> cuerpo cuerpoBloque .
+
+    RBRACE          reduce using rule 13 (cuerpoBloque -> cuerpo cuerpoBloque .)
+
+
+state 100
+
+    (25) sentenciafor -> FOR LPAREN asignacion comparacion . SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+
+    SEMICOLON       shift and go to state 112
+
+
+state 101
+
+    (26) sentenciawhile -> WHILE LPAREN comparacion RPAREN . LBRACE cuerpoBloque RBRACE
+
+    LBRACE          shift and go to state 113
+
+
+state 102
+
+    (11) declararFunc -> VOID ID LPAREN RPAREN . LBRACE cuerpoBloque RBRACE
+
+    LBRACE          shift and go to state 114
+
+
+state 103
+
+    (14) usarFunc -> PRINT LPAREN STRINGVAL RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 115
+
+
+state 104
+
+    (34) asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN . ID SEMICOLON
+
+    ID              shift and go to state 116
+
+
+state 105
+
+    (35) asignacionSet -> SET ID ASSIGN NEW . SET LPAREN RPAREN SEMICOLON
+
+    SET             shift and go to state 117
+
+
+state 106
+
+    (36) asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA . tipoPrimitivo MORETHAN ID SEMICOLON
+    (58) tipoPrimitivo -> . tipoNumeric
+    (59) tipoPrimitivo -> . tipoString
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+
+    tipoPrimitivo                  shift and go to state 118
+    tipoNumeric                    shift and go to state 86
+    tipoString                     shift and go to state 87
+
+state 107
+
+    (38) asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .
+
+    BOOL            reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    NUMBER          reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    ID              reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    IF              reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    ELSE            reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    FOR             reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    WHILE           reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    VOID            reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    PRINT           reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    NUM             reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    INT             reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    DOUBLE          reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    STRING          reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    VAR             reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    DYNAMIC         reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    LIST            reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    SET             reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    MAP             reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    $end            reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+    RBRACE          reduce using rule 38 (asignacionNumerica -> tipoNumeric ID ASSIGN expresion SEMICOLON .)
+
+
+state 108
+
+    (39) asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .
+
+    BOOL            reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    NUMBER          reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    ID              reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    IF              reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    ELSE            reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    FOR             reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    WHILE           reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    VOID            reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    PRINT           reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    NUM             reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    INT             reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    DOUBLE          reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    STRING          reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    VAR             reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    DYNAMIC         reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    LIST            reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    SET             reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    MAP             reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    $end            reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+    RBRACE          reduce using rule 39 (asignacionString -> tipoString ID ASSIGN expresionString SEMICOLON .)
+
+
+state 109
+
+    (37) asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .
+
+    BOOL            reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    NUMBER          reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    ID              reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    IF              reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    ELSE            reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    FOR             reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    WHILE           reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    VOID            reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    PRINT           reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    NUM             reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    INT             reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    DOUBLE          reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    STRING          reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    VAR             reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    DYNAMIC         reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    LIST            reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    SET             reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    MAP             reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    $end            reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+    RBRACE          reduce using rule 37 (asignacionBoolean -> BOOL ID ASSIGN expresionBoolean SEMICOLON .)
+
+
+state 110
+
+    (18) sentenciaif -> IF LPAREN comparacion RPAREN LBRACE . cuerpoBloque RBRACE
+    (12) cuerpoBloque -> . cuerpo
+    (13) cuerpoBloque -> . cuerpo cuerpoBloque
+    (3) cuerpo -> . asignacion
+    (4) cuerpo -> . expresion
+    (5) cuerpo -> . comparacion
+    (6) cuerpo -> . sentenciasConditional
+    (7) cuerpo -> . sentenciasIterativas
+    (8) cuerpo -> . funciones
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (42) comparacion -> . valor operadoresComp expresion
+    (15) sentenciasConditional -> . sentenciaif
+    (16) sentenciasConditional -> . sentenciaelseif
+    (17) sentenciasConditional -> . sentenciaelse
+    (21) sentenciasIterativas -> . sentenciafor
+    (22) sentenciasIterativas -> . sentenciawhile
+    (9) funciones -> . declararFunc
+    (10) funciones -> . usarFunc
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+    (18) sentenciaif -> . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (19) sentenciaelseif -> . ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> . ELSE LBRACE cuerpoBloque RBRACE
+    (25) sentenciafor -> . FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (26) sentenciawhile -> . WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (11) declararFunc -> . VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+    (14) usarFunc -> . PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    BOOL            shift and go to state 24
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+    IF              shift and go to state 29
+    ELSE            shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    VOID            shift and go to state 33
+    PRINT           shift and go to state 34
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    comparacion                    shift and go to state 5
+    cuerpoBloque                   shift and go to state 119
+    cuerpo                         shift and go to state 80
+    asignacion                     shift and go to state 3
+    expresion                      shift and go to state 4
+    sentenciasConditional          shift and go to state 6
+    sentenciasIterativas           shift and go to state 7
+    funciones                      shift and go to state 8
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    valor                          shift and go to state 13
+    sentenciaif                    shift and go to state 14
+    sentenciaelseif                shift and go to state 15
+    sentenciaelse                  shift and go to state 16
+    sentenciafor                   shift and go to state 17
+    sentenciawhile                 shift and go to state 18
+    declararFunc                   shift and go to state 19
+    usarFunc                       shift and go to state 20
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 111
+
+    (19) sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN . LBRACE cuerpoBloque RBRACE
+
+    LBRACE          shift and go to state 120
+
+
+state 112
+
+    (25) sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON . incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (23) incremDecrem -> . ID PLUS PLUS
+    (24) incremDecrem -> . ID MINUS MINUS
+
+    ID              shift and go to state 122
+
+    incremDecrem                   shift and go to state 121
+
+state 113
+
+    (26) sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE . cuerpoBloque RBRACE
+    (12) cuerpoBloque -> . cuerpo
+    (13) cuerpoBloque -> . cuerpo cuerpoBloque
+    (3) cuerpo -> . asignacion
+    (4) cuerpo -> . expresion
+    (5) cuerpo -> . comparacion
+    (6) cuerpo -> . sentenciasConditional
+    (7) cuerpo -> . sentenciasIterativas
+    (8) cuerpo -> . funciones
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (42) comparacion -> . valor operadoresComp expresion
+    (15) sentenciasConditional -> . sentenciaif
+    (16) sentenciasConditional -> . sentenciaelseif
+    (17) sentenciasConditional -> . sentenciaelse
+    (21) sentenciasIterativas -> . sentenciafor
+    (22) sentenciasIterativas -> . sentenciawhile
+    (9) funciones -> . declararFunc
+    (10) funciones -> . usarFunc
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+    (18) sentenciaif -> . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (19) sentenciaelseif -> . ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> . ELSE LBRACE cuerpoBloque RBRACE
+    (25) sentenciafor -> . FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (26) sentenciawhile -> . WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (11) declararFunc -> . VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+    (14) usarFunc -> . PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    BOOL            shift and go to state 24
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+    IF              shift and go to state 29
+    ELSE            shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    VOID            shift and go to state 33
+    PRINT           shift and go to state 34
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    comparacion                    shift and go to state 5
+    cuerpoBloque                   shift and go to state 123
+    cuerpo                         shift and go to state 80
+    asignacion                     shift and go to state 3
+    expresion                      shift and go to state 4
+    sentenciasConditional          shift and go to state 6
+    sentenciasIterativas           shift and go to state 7
+    funciones                      shift and go to state 8
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    valor                          shift and go to state 13
+    sentenciaif                    shift and go to state 14
+    sentenciaelseif                shift and go to state 15
+    sentenciaelse                  shift and go to state 16
+    sentenciafor                   shift and go to state 17
+    sentenciawhile                 shift and go to state 18
+    declararFunc                   shift and go to state 19
+    usarFunc                       shift and go to state 20
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 114
+
+    (11) declararFunc -> VOID ID LPAREN RPAREN LBRACE . cuerpoBloque RBRACE
+    (12) cuerpoBloque -> . cuerpo
+    (13) cuerpoBloque -> . cuerpo cuerpoBloque
+    (3) cuerpo -> . asignacion
+    (4) cuerpo -> . expresion
+    (5) cuerpo -> . comparacion
+    (6) cuerpo -> . sentenciasConditional
+    (7) cuerpo -> . sentenciasIterativas
+    (8) cuerpo -> . funciones
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (42) comparacion -> . valor operadoresComp expresion
+    (15) sentenciasConditional -> . sentenciaif
+    (16) sentenciasConditional -> . sentenciaelseif
+    (17) sentenciasConditional -> . sentenciaelse
+    (21) sentenciasIterativas -> . sentenciafor
+    (22) sentenciasIterativas -> . sentenciawhile
+    (9) funciones -> . declararFunc
+    (10) funciones -> . usarFunc
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+    (18) sentenciaif -> . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (19) sentenciaelseif -> . ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> . ELSE LBRACE cuerpoBloque RBRACE
+    (25) sentenciafor -> . FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (26) sentenciawhile -> . WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (11) declararFunc -> . VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+    (14) usarFunc -> . PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    BOOL            shift and go to state 24
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+    IF              shift and go to state 29
+    ELSE            shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    VOID            shift and go to state 33
+    PRINT           shift and go to state 34
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    cuerpoBloque                   shift and go to state 124
+    cuerpo                         shift and go to state 80
+    asignacion                     shift and go to state 3
+    expresion                      shift and go to state 4
+    comparacion                    shift and go to state 5
+    sentenciasConditional          shift and go to state 6
+    sentenciasIterativas           shift and go to state 7
+    funciones                      shift and go to state 8
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    valor                          shift and go to state 13
+    sentenciaif                    shift and go to state 14
+    sentenciaelseif                shift and go to state 15
+    sentenciaelse                  shift and go to state 16
+    sentenciafor                   shift and go to state 17
+    sentenciawhile                 shift and go to state 18
+    declararFunc                   shift and go to state 19
+    usarFunc                       shift and go to state 20
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 115
+
+    (14) usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .
+
+    BOOL            reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    NUMBER          reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    ID              reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    IF              reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    ELSE            reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    FOR             reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    WHILE           reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    VOID            reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    PRINT           reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    NUM             reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    INT             reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    DOUBLE          reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    STRING          reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    VAR             reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    DYNAMIC         reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    LIST            reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    SET             reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    MAP             reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    $end            reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 14 (usarFunc -> PRINT LPAREN STRINGVAL RPAREN SEMICOLON .)
+
+
+state 116
+
+    (34) asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID . SEMICOLON
+
+    SEMICOLON       shift and go to state 125
+
+
+state 117
+
+    (35) asignacionSet -> SET ID ASSIGN NEW SET . LPAREN RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 126
+
+
+state 118
+
+    (36) asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo . MORETHAN ID SEMICOLON
+
+    MORETHAN        shift and go to state 127
+
+
+state 119
+
+    (18) sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque . RBRACE
+
+    RBRACE          shift and go to state 128
+
+
+state 120
+
+    (19) sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE . cuerpoBloque RBRACE
+    (12) cuerpoBloque -> . cuerpo
+    (13) cuerpoBloque -> . cuerpo cuerpoBloque
+    (3) cuerpo -> . asignacion
+    (4) cuerpo -> . expresion
+    (5) cuerpo -> . comparacion
+    (6) cuerpo -> . sentenciasConditional
+    (7) cuerpo -> . sentenciasIterativas
+    (8) cuerpo -> . funciones
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (42) comparacion -> . valor operadoresComp expresion
+    (15) sentenciasConditional -> . sentenciaif
+    (16) sentenciasConditional -> . sentenciaelseif
+    (17) sentenciasConditional -> . sentenciaelse
+    (21) sentenciasIterativas -> . sentenciafor
+    (22) sentenciasIterativas -> . sentenciawhile
+    (9) funciones -> . declararFunc
+    (10) funciones -> . usarFunc
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+    (18) sentenciaif -> . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (19) sentenciaelseif -> . ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> . ELSE LBRACE cuerpoBloque RBRACE
+    (25) sentenciafor -> . FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (26) sentenciawhile -> . WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (11) declararFunc -> . VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+    (14) usarFunc -> . PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    BOOL            shift and go to state 24
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+    IF              shift and go to state 29
+    ELSE            shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    VOID            shift and go to state 33
+    PRINT           shift and go to state 34
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    comparacion                    shift and go to state 5
+    cuerpoBloque                   shift and go to state 129
+    cuerpo                         shift and go to state 80
+    asignacion                     shift and go to state 3
+    expresion                      shift and go to state 4
+    sentenciasConditional          shift and go to state 6
+    sentenciasIterativas           shift and go to state 7
+    funciones                      shift and go to state 8
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    valor                          shift and go to state 13
+    sentenciaif                    shift and go to state 14
+    sentenciaelseif                shift and go to state 15
+    sentenciaelse                  shift and go to state 16
+    sentenciafor                   shift and go to state 17
+    sentenciawhile                 shift and go to state 18
+    declararFunc                   shift and go to state 19
+    usarFunc                       shift and go to state 20
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 121
+
+    (25) sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem . RPAREN LBRACE cuerpoBloque RBRACE
+
+    RPAREN          shift and go to state 130
+
+
+state 122
+
+    (23) incremDecrem -> ID . PLUS PLUS
+    (24) incremDecrem -> ID . MINUS MINUS
+
+    PLUS            shift and go to state 131
+    MINUS           shift and go to state 132
+
+
+state 123
+
+    (26) sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque . RBRACE
+
+    RBRACE          shift and go to state 133
+
+
+state 124
+
+    (11) declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque . RBRACE
+
+    RBRACE          shift and go to state 134
+
+
+state 125
+
+    (34) asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .
+
+    BOOL            reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    NUMBER          reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    ID              reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    IF              reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    ELSE            reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    FOR             reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    WHILE           reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    VOID            reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    PRINT           reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    NUM             reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    INT             reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    DOUBLE          reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    STRING          reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    VAR             reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    DYNAMIC         reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    LIST            reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    SET             reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    MAP             reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    $end            reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+    RBRACE          reduce using rule 34 (asignacionList -> LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON .)
+
+
+state 126
+
+    (35) asignacionSet -> SET ID ASSIGN NEW SET LPAREN . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 135
+
+
+state 127
+
+    (36) asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN . ID SEMICOLON
+
+    ID              shift and go to state 136
+
+
+state 128
+
+    (18) sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .
+
+    BOOL            reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUMBER          reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    ID              reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    IF              reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    ELSE            reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    FOR             reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    WHILE           reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    VOID            reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    PRINT           reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUM             reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    INT             reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    DOUBLE          reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    STRING          reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    VAR             reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    DYNAMIC         reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    LIST            reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    SET             reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    MAP             reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    $end            reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    RBRACE          reduce using rule 18 (sentenciaif -> IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+
+
+state 129
+
+    (19) sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque . RBRACE
+
+    RBRACE          shift and go to state 137
+
+
+state 130
+
+    (25) sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN . LBRACE cuerpoBloque RBRACE
+
+    LBRACE          shift and go to state 138
+
+
+state 131
+
+    (23) incremDecrem -> ID PLUS . PLUS
+
+    PLUS            shift and go to state 139
+
+
+state 132
+
+    (24) incremDecrem -> ID MINUS . MINUS
+
+    MINUS           shift and go to state 140
+
+
+state 133
+
+    (26) sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .
+
+    BOOL            reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUMBER          reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    ID              reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    IF              reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    ELSE            reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    FOR             reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    WHILE           reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    VOID            reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    PRINT           reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUM             reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    INT             reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    DOUBLE          reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    STRING          reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    VAR             reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    DYNAMIC         reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    LIST            reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    SET             reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    MAP             reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    $end            reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    RBRACE          reduce using rule 26 (sentenciawhile -> WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+
+
+state 134
+
+    (11) declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .
+
+    BOOL            reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUMBER          reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    ID              reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    IF              reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    ELSE            reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    FOR             reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    WHILE           reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    VOID            reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    PRINT           reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUM             reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    INT             reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    DOUBLE          reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    STRING          reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    VAR             reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    DYNAMIC         reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    LIST            reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    SET             reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    MAP             reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    $end            reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+    RBRACE          reduce using rule 11 (declararFunc -> VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE .)
+
+
+state 135
+
+    (35) asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 141
+
+
+state 136
+
+    (36) asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID . SEMICOLON
+
+    SEMICOLON       shift and go to state 142
+
+
+state 137
+
+    (19) sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .
+
+    BOOL            reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUMBER          reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    ID              reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    IF              reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    ELSE            reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    FOR             reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    WHILE           reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    VOID            reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    PRINT           reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUM             reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    INT             reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    DOUBLE          reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    STRING          reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    VAR             reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    DYNAMIC         reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    LIST            reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    SET             reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    MAP             reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    $end            reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+    RBRACE          reduce using rule 19 (sentenciaelseif -> ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE .)
+
+
+state 138
+
+    (25) sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE . cuerpoBloque RBRACE
+    (12) cuerpoBloque -> . cuerpo
+    (13) cuerpoBloque -> . cuerpo cuerpoBloque
+    (3) cuerpo -> . asignacion
+    (4) cuerpo -> . expresion
+    (5) cuerpo -> . comparacion
+    (6) cuerpo -> . sentenciasConditional
+    (7) cuerpo -> . sentenciasIterativas
+    (8) cuerpo -> . funciones
+    (27) asignacion -> . asignacionNumerica
+    (28) asignacion -> . asignacionString
+    (29) asignacion -> . asignacionBoolean
+    (30) asignacion -> . asignacionEstructuraDatos
+    (40) expresion -> . valor
+    (43) expresion -> . valor operadoresMat expresion
+    (42) comparacion -> . valor operadoresComp expresion
+    (15) sentenciasConditional -> . sentenciaif
+    (16) sentenciasConditional -> . sentenciaelseif
+    (17) sentenciasConditional -> . sentenciaelse
+    (21) sentenciasIterativas -> . sentenciafor
+    (22) sentenciasIterativas -> . sentenciawhile
+    (9) funciones -> . declararFunc
+    (10) funciones -> . usarFunc
+    (38) asignacionNumerica -> . tipoNumeric ID ASSIGN expresion SEMICOLON
+    (39) asignacionString -> . tipoString ID ASSIGN expresionString SEMICOLON
+    (37) asignacionBoolean -> . BOOL ID ASSIGN expresionBoolean SEMICOLON
+    (31) asignacionEstructuraDatos -> . asignacionList
+    (32) asignacionEstructuraDatos -> . asignacionSet
+    (33) asignacionEstructuraDatos -> . asignacionMap
+    (56) valor -> . NUMBER
+    (57) valor -> . ID
+    (18) sentenciaif -> . IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (19) sentenciaelseif -> . ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (20) sentenciaelse -> . ELSE LBRACE cuerpoBloque RBRACE
+    (25) sentenciafor -> . FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE
+    (26) sentenciawhile -> . WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE
+    (11) declararFunc -> . VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE
+    (14) usarFunc -> . PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+    (60) tipoNumeric -> . NUM
+    (61) tipoNumeric -> . INT
+    (62) tipoNumeric -> . DOUBLE
+    (63) tipoString -> . STRING
+    (64) tipoString -> . VAR
+    (65) tipoString -> . DYNAMIC
+    (34) asignacionList -> . LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON
+    (35) asignacionSet -> . SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON
+    (36) asignacionMap -> . MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON
+
+    BOOL            shift and go to state 24
+    NUMBER          shift and go to state 28
+    ID              shift and go to state 22
+    IF              shift and go to state 29
+    ELSE            shift and go to state 30
+    FOR             shift and go to state 31
+    WHILE           shift and go to state 32
+    VOID            shift and go to state 33
+    PRINT           shift and go to state 34
+    NUM             shift and go to state 35
+    INT             shift and go to state 36
+    DOUBLE          shift and go to state 37
+    STRING          shift and go to state 38
+    VAR             shift and go to state 39
+    DYNAMIC         shift and go to state 40
+    LIST            shift and go to state 41
+    SET             shift and go to state 42
+    MAP             shift and go to state 43
+
+    asignacion                     shift and go to state 3
+    comparacion                    shift and go to state 5
+    cuerpoBloque                   shift and go to state 143
+    cuerpo                         shift and go to state 80
+    expresion                      shift and go to state 4
+    sentenciasConditional          shift and go to state 6
+    sentenciasIterativas           shift and go to state 7
+    funciones                      shift and go to state 8
+    asignacionNumerica             shift and go to state 9
+    asignacionString               shift and go to state 10
+    asignacionBoolean              shift and go to state 11
+    asignacionEstructuraDatos      shift and go to state 12
+    valor                          shift and go to state 13
+    sentenciaif                    shift and go to state 14
+    sentenciaelseif                shift and go to state 15
+    sentenciaelse                  shift and go to state 16
+    sentenciafor                   shift and go to state 17
+    sentenciawhile                 shift and go to state 18
+    declararFunc                   shift and go to state 19
+    usarFunc                       shift and go to state 20
+    tipoNumeric                    shift and go to state 21
+    tipoString                     shift and go to state 23
+    asignacionList                 shift and go to state 25
+    asignacionSet                  shift and go to state 26
+    asignacionMap                  shift and go to state 27
+
+state 139
+
+    (23) incremDecrem -> ID PLUS PLUS .
+
+    RPAREN          reduce using rule 23 (incremDecrem -> ID PLUS PLUS .)
+
+
+state 140
+
+    (24) incremDecrem -> ID MINUS MINUS .
+
+    RPAREN          reduce using rule 24 (incremDecrem -> ID MINUS MINUS .)
+
+
+state 141
+
+    (35) asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .
+
+    BOOL            reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    NUMBER          reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    ID              reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    IF              reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    ELSE            reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    FOR             reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    WHILE           reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    VOID            reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    PRINT           reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    NUM             reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    INT             reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    DOUBLE          reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    STRING          reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    VAR             reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    DYNAMIC         reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    LIST            reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    SET             reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    MAP             reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    $end            reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 35 (asignacionSet -> SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON .)
+
+
+state 142
+
+    (36) asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .
+
+    BOOL            reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    NUMBER          reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    ID              reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    IF              reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    ELSE            reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    FOR             reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    WHILE           reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    VOID            reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    PRINT           reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    NUM             reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    INT             reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    DOUBLE          reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    STRING          reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    VAR             reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    DYNAMIC         reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    LIST            reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    SET             reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    MAP             reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    $end            reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+    RBRACE          reduce using rule 36 (asignacionMap -> MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON .)
+
+
+state 143
+
+    (25) sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque . RBRACE
+
+    RBRACE          shift and go to state 144
+
+
+state 144
+
+    (25) sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .
+
+    BOOL            reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUMBER          reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    ID              reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    IF              reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    ELSE            reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    FOR             reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    WHILE           reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    VOID            reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    PRINT           reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    NUM             reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    INT             reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    DOUBLE          reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    STRING          reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    VAR             reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    DYNAMIC         reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    LIST            reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    SET             reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    MAP             reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    $end            reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
+    RBRACE          reduce using rule 25 (sentenciafor -> FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE .)
 

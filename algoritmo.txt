@@ -1,0 +1,9 @@
+for (int i = 5; i < 10; i++){
+	var efe = "EFESOTA";
+}
+
+var palabra = "palabra";
+print("Jejejeje");
+
+num mone1 = 5;
+List<String> yaDice;

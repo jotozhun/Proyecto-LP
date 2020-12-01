@@ -81,7 +81,7 @@ t_PUNTO = r'\.'
 
 
 def t_ID(t):
-    r'[a-z_][a-zA-Z0-9_]*'
+    r'[A-Za-z_][a-zA-Z0-9_]*'
     t.type = reserved.get(t.value, 'ID')
     return t
 
@@ -123,9 +123,11 @@ def lexAnalizer(texto):
         lexResult += (str(tok) + "\n")
     return lexResult
 
+def lexDefinition():
+    return lex.lex()
+
 
 logging.basicConfig(filename="lexErrors.txt", filemode="w", level=logging.DEBUG)
-lexer = lex.lex()
 
 '''
 file = open("archivo.txt", encoding="utf8")

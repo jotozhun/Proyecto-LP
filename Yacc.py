@@ -1,15 +1,20 @@
 import ply.yacc as yacc
 import logging
-from main import tokens
+from main import tokens, lexDefinition
 
 #Expresiones matematicas
 
+
+def p_sentencia(p):
+    '''sentencia : cuerpo
+                | cuerpo sentencia'''
 
 def p_cuerpo(p):
     '''cuerpo : asignacion
             | expresion
             | comparacion
-            | sentenciaif
+            | sentenciasConditional
+            | sentenciasIterativas
             | funciones'''
 
 def p_funciones(p):
@@ -17,13 +22,42 @@ def p_funciones(p):
                  | usarFunc'''
 
 def p_declararFunc(p):
-    '''declararFunc : VOID ID LPAREN RPAREN LBRACE cuerpo RBRACE'''
+    '''declararFunc : VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE'''
+
+def p_cuerpoBloque(p):
+    '''cuerpoBloque : cuerpo
+                    | cuerpo cuerpoBloque'''
 
 def p_usarFunc(p):
     '''usarFunc : PRINT LPAREN STRINGVAL RPAREN SEMICOLON'''
 
+def p_sentenciasConditional(p):
+    '''sentenciasConditional : sentenciaif
+                             | sentenciaelseif
+                             | sentenciaelse'''
+
 def p_sentenciaif(p):
-    'sentenciaif : IF LPAREN comparacion RPAREN COLON cuerpo'
+    'sentenciaif : IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE'
+
+def p_sentenciaelseif(p):
+    '''sentenciaelseif : ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE'''
+
+def p_sentenciaelse(p):
+    '''sentenciaelse : ELSE LBRACE cuerpoBloque RBRACE'''
+
+def p_sentenciasIterativas(p):
+    '''sentenciasIterativas : sentenciafor
+                            | sentenciawhile'''
+
+def p_incremDecrem(p):
+    '''incremDecrem : ID PLUS PLUS
+                    | ID MINUS MINUS'''
+
+def p_sentenciafor(p):
+    '''sentenciafor : FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE'''
+
+def p_sentenciawhile(p):
+    '''sentenciawhile : WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE'''
 
 def p_asignacion(p):
     '''asignacion : asignacionNumerica 
@@ -111,19 +145,21 @@ def p_error(p):
 
 # Build the parser
 
-
+inityacc = open("yaccErrors.txt", "w")
+inityacc.close()
 logging.basicConfig(filename="yaccErrors.txt", filemode="w", level=logging.DEBUG)
-#parser = yacc.yacc()
+lexDefinition()
+parser = yacc.yacc()
+
 
 
 
 def analizadorSintactico(entrada):
-    parser = yacc.yacc()
+    #parser = yacc.yacc()
     return str(parser.parse(entrada))
     #yaccResult = str(parser.parse(entrada))
     #return yaccResult
-
-"""
+'''
 while True:
     try:
         s = input('calc > ')
@@ -132,12 +168,11 @@ while True:
     if not s: continue
     result = parser.parse(s)
     print(result)
-
+    '''
 
 f=open("algoritmo.txt")
 s = f.read()
 print(s)
-result = parser.parse(s)
+result = parser.parse(s, tracking=True)
 print(result)
 f.close()
-"""
