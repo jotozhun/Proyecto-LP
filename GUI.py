@@ -2,7 +2,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
-from main import *
+from main import lexAnalizer
 from Yacc import *
 
 import sys
@@ -18,6 +18,7 @@ class MainWindow(QMainWindow):
         self.init_UI()
 
     def init_UI(self):
+        self.resultText.setReadOnly(True)
         # La barra de herramientas
         toolbar = QToolBar("My toolBar")
         toolbar.setIconSize(QSize(32, 32))
@@ -70,27 +71,22 @@ class MainWindow(QMainWindow):
         if(not self.isTextboxEmpty()):
             self.resultText.clear()
             textToProcess = self.textbox.toPlainText()
-            resultText = lexAnalizer(textToProcess)
+            resultTextTmp = lexAnalizer(textToProcess)
             lexFile = open("lexErrors.txt", "r")
-            resultText += "\n\n\nErrores de sintaxis: \n\n%s" % lexFile.read()
+
+            resultTextTmp += "\n\n\nErrores de sintaxis: \n\n%s" % lexFile.read()
             lexFile.close()
             #Just for overwriting
             raw = open("lexErrors.txt", "w")
             raw.close()
-            self.resultText.setText(resultText)
+            self.resultText.setText(resultTextTmp)
 
     def onSyntButton(self):
-        if not self.isTextboxEmpty():
+        if (not self.isTextboxEmpty()):
             self.resultText.clear()
             textToProcess = self.textbox.toPlainText()
-            resultText = analizadorSintactico(textToProcess)
-            syntFile = open("yaccErrors.txt", "r")
-            resultText += "\n\n\nErrores de sintaxis: \n\n%s" %syntFile.read()
-            syntFile.close()
-            # Just for overwriting
-            raw = open("lexErrors.txt", "w")
-            raw.close()
-            self.resultText.setText(resultText)
+            resultadoYac = analizadorSintactico(textToProcess)
+            self.resultText.setText(resultadoYac)
 
     def onSaveButton(self):
         saveFile = QFileDialog.getSaveFileName(None, "SaveTextFile", "/", "Text Files (*.txt)")

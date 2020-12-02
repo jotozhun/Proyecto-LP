@@ -8,6 +8,7 @@ Unused terminals:
     PUNTO
     RDQMARK
     SQMARK
+    STDIN
 
 Grammar
 
@@ -118,6 +119,7 @@ RPAREN               : 11 14 18 19 25 26 35
 SEMICOLON            : 14 25 34 35 36 37 38 39
 SET                  : 35 35
 SQMARK               : 
+STDIN                : 
 STRING               : 63
 STRINGVAL            : 14 41
 TIMES                : 48

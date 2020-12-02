@@ -7,3 +7,13 @@ print("Jejejeje");
 
 num mone1 = 5;
 List<String> yaDice;
+
+void funcionCualquiera(){
+bool isSomething = true;
+num edad = 15;
+if(5 > 10){
+   String nombre = "Joel";		
+}else{
+   String nombre = "Rony";
+}
+}

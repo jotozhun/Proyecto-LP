@@ -21,7 +21,8 @@ reserved = {
     'Set':'SET',
     'print':'PRINT',
     'new':'NEW',
-    'void':'VOID'
+    'void':'VOID',
+    'stdin':'STDIN'
 }
 
 tokens = [

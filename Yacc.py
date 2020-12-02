@@ -137,28 +137,23 @@ def p_tipoString(p):
                   | DYNAMIC'''
  #Asignacion
 
-
  # Error rule for syntax errors
 def p_error(p):
-    logging.debug("Syntax error in input!")
     print("Syntax error in input!")
 
 # Build the parser
-
-inityacc = open("yaccErrors.txt", "w")
-inityacc.close()
-logging.basicConfig(filename="yaccErrors.txt", filemode="w", level=logging.DEBUG)
+#inityacc = open("yaccErrors.txt", "w")
+#inityacc.close()
 lexDefinition()
 parser = yacc.yacc()
 
-
-
-
+#parser = yacc.yacc()
 def analizadorSintactico(entrada):
-    #parser = yacc.yacc()
-    return str(parser.parse(entrada))
-    #yaccResult = str(parser.parse(entrada))
-    #return yaccResult
+    yaccResult = str(parser.parse(entrada))
+    print(yaccResult)
+    return yaccResult
+
+#logging.basicConfig(filename="yaccResult.txt", filemode="w", level=logging.ERROR)
 '''
 while True:
     try:
