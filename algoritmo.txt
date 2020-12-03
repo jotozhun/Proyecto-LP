@@ -1,19 +1,33 @@
-for (int i = 5; i < 10; i++){
-	var efe = "EFESOTA";
+int x = 1 + 2;
+var y = "Strsda";
+
+void funcion(){
+    x = x + 5;
+    for(int i = 4; i < 10; i++){
+	efe = 5 + t;
+	for(int i = 0; i < 10; i++){
+	efe = 5 + t;
+	if(4 > 3){
+    		x = 4 + d;
+        }
+	else if(4 > 3){
+    		x = 4 + d;
+        }
+	else if(d > 3){
+    		x = 4 + d;
+        }
+	else{
+    		x = 4 + d;
+        }
+	while(3 >= d){
+		int t;
+		efe = 4;
+}
+}
+}
 }
 
-var palabra = "palabra";
-print("Jejejeje");
-
-num mone1 = 5;
-List<String> yaDice;
-
-void funcionCualquiera(){
-bool isSomething = true;
-num edad = 15;
-if(5 > 10){
-   String nombre = "Joel";		
-}else{
-   String nombre = "Rony";
-}
+void functiosda(String efe, int x, num yo){
+	String s;
+	operacion = x * yo;
 }

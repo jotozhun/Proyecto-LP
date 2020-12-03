@@ -1,49 +1,76 @@
 import ply.yacc as yacc
 import logging
-from main import tokens, lexDefinition
+from main import *
 
 #Expresiones matematicas
 
 
 def p_sentencia(p):
     '''sentencia : cuerpo
-                | cuerpo sentencia'''
+                | cuerpo sentencia
+                | declararFuncMultiple'''
 
 def p_cuerpo(p):
     '''cuerpo : asignacion
-            | expresion
-            | comparacion
+            | expresionMat
+            | expresionComp
             | sentenciasConditional
             | sentenciasIterativas
-            | funciones'''
+            | usarFunc'''
 
-def p_funciones(p):
-    '''funciones : declararFunc 
-                 | usarFunc'''
+def p_declararFuncMultiple(p):
+    '''declararFuncMultiple : declararFunc
+                            | declararFunc declararFuncMultiple'''
 
 def p_declararFunc(p):
-    '''declararFunc : VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE'''
+    '''declararFunc : declararFuncNoArgs
+                    | declararFuncArgs'''
+
+def p_declararFuncArgs(p):
+    '''declararFuncArgs : VOID ID LPAREN funcArgumentos RPAREN LBRACE cuerpoBloque RBRACE'''
+
+def p_funcArgumentos(p):
+    '''funcArgumentos : argumento
+                      | argumento COMMA funcArgumentos'''
+
+def p_argumentos(p):
+    '''argumento : asignacionNum
+                 | asignacionStr'''
+
+def p_declararFuncNoArgs(p):
+    '''declararFuncNoArgs : VOID ID LPAREN RPAREN LBRACE cuerpoBloque RBRACE'''
 
 def p_cuerpoBloque(p):
     '''cuerpoBloque : cuerpo
                     | cuerpo cuerpoBloque'''
 
 def p_usarFunc(p):
-    '''usarFunc : PRINT LPAREN STRINGVAL RPAREN SEMICOLON'''
+    '''usarFunc : PRINT LPAREN STRINGVAL RPAREN SEMICOLON
+                | PRINT LPAREN NUMBER RPAREN SEMICOLON
+                | PRINT LPAREN ID RPAREN SEMICOLON'''
 
 def p_sentenciasConditional(p):
     '''sentenciasConditional : sentenciaif
-                             | sentenciaelseif
-                             | sentenciaelse'''
+                             | sentenciaif anidadaelseif
+                             | sentenciaif sentenciaelse'''
+def p_anidadaelseif(p):
+    '''anidadaelseif : sentenciaelseif
+                    |   sentenciaelseif anidadaelseif
+                    |   sentenciaelseif sentenciaelse'''
+
 
 def p_sentenciaif(p):
-    'sentenciaif : IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE'
+    'sentenciaif : IF LPAREN expresionComp RPAREN LBRACE cuerpoBloque RBRACE'
 
 def p_sentenciaelseif(p):
-    '''sentenciaelseif : ELSE IF LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE'''
+    '''sentenciaelseif :  ELSE IF LPAREN expresionComp RPAREN LBRACE cuerpoBloque RBRACE'''
 
 def p_sentenciaelse(p):
-    '''sentenciaelse : ELSE LBRACE cuerpoBloque RBRACE'''
+    '''sentenciaelse :  ELSE LBRACE cuerpoBloque RBRACE'''
+
+
+#def p_operacionesVariables(p):
+ #   'operacionesVariables : ID PLUS ID SEMICOLON'
 
 def p_sentenciasIterativas(p):
     '''sentenciasIterativas : sentenciafor
@@ -54,16 +81,16 @@ def p_incremDecrem(p):
                     | ID MINUS MINUS'''
 
 def p_sentenciafor(p):
-    '''sentenciafor : FOR LPAREN asignacion comparacion SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE'''
+    '''sentenciafor : FOR LPAREN asignacion expresionComp SEMICOLON incremDecrem RPAREN LBRACE cuerpoBloque RBRACE'''
 
 def p_sentenciawhile(p):
-    '''sentenciawhile : WHILE LPAREN comparacion RPAREN LBRACE cuerpoBloque RBRACE'''
+    '''sentenciawhile : WHILE LPAREN expresionComp RPAREN LBRACE cuerpoBloque RBRACE'''
 
 def p_asignacion(p):
-    '''asignacion : asignacionNumerica 
-                  | asignacionString
-                  | asignacionBoolean
-                  | asignacionEstructuraDatos'''
+    '''asignacion : asignacionNumerica SEMICOLON
+                  | asignacionString SEMICOLON
+                  | asignacionBoolean SEMICOLON
+                  | asignacionEstructuraDatos SEMICOLON'''
 
 def p_asignacionEstructuraDatos(p):
     '''asignacionEstructuraDatos : asignacionList
@@ -71,34 +98,47 @@ def p_asignacionEstructuraDatos(p):
                                  | asignacionMap'''
 
 def p_asignacionList(p):
-    '''asignacionList : LIST LESSTHAN tipoPrimitivo MORETHAN ID SEMICOLON'''
+    '''asignacionList : LIST LESSTHAN tipoPrimitivo MORETHAN ID'''
 
 def p_asignacionSet(p):
-    '''asignacionSet : SET ID ASSIGN NEW SET LPAREN RPAREN SEMICOLON'''
+    '''asignacionSet : SET ID ASSIGN NEW SET LPAREN RPAREN'''
 
 def p_asignacionMap(p):
-    '''asignacionMap : MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID SEMICOLON'''
+    '''asignacionMap : MAP LESSTHAN tipoPrimitivo COMMA tipoPrimitivo MORETHAN ID'''
 
 def p_asignacionBoolean(p):
-    '''asignacionBoolean : BOOL ID ASSIGN expresionBoolean SEMICOLON'''
+    '''asignacionBoolean : BOOL ID ASSIGN expresionBoolean'''
 
 def p_asignacionNumerica(p):
-    'asignacionNumerica : tipoNumeric ID ASSIGN expresion SEMICOLON'
+    '''asignacionNumerica : asignacionNum
+                          | asignacionNumInit'''
+
+def p_asignacionNum(p):
+    '''asignacionNum : tipoNumeric ID'''
+
+def p_asignacionNumInit(p):
+    '''asignacionNumInit : tipoNumeric ID ASSIGN expresionMat
+                            | ID ASSIGN expresionMat'''
 
 def p_asignacionString(p):
-    'asignacionString : tipoString ID ASSIGN expresionString SEMICOLON'
+    '''asignacionString : asignacionStr
+                        | asignacionStrInit'''
 
-def p_expresion(p):
-    '''expresion : valor'''
+def p_asignacionStr(p):
+    'asignacionStr : tipoString ID'
+
+def p_asignacionStrInit(p):
+    'asignacionStrInit : tipoString ID ASSIGN expresionString'
 
 def p_expresionString(p):
     '''expresionString : STRINGVAL'''
 
 def p_comparacion(p):
-    'comparacion : valor operadoresComp expresion'
+    'expresionComp : valor operadoresComp valor'
 
 def p_expresion_matematica(p):
-    'expresion : valor operadoresMat expresion'
+    '''expresionMat : valor operadoresMat valor
+                    | valor'''
 
 def p_expresionBoolean(p):
     '''expresionBoolean : TRUE
@@ -135,6 +175,9 @@ def p_tipoString(p):
     '''tipoString : STRING
                   | VAR
                   | DYNAMIC'''
+
+
+
  #Asignacion
 
  # Error rule for syntax errors
