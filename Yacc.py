@@ -2,6 +2,8 @@ import ply.yacc as yacc
 import logging
 from main import *
 
+lista=[]
+data='''int x;;'''
 #Expresiones matematicas
 
 
@@ -182,7 +184,12 @@ def p_tipoString(p):
 
  # Error rule for syntax errors
 def p_error(p):
-    print("Syntax error in input!")
+    print(p)
+    lista.append("Errores sintacticos " + str(p) + "\n")
+
+
+for i in lista:
+    print(i)
 
 # Build the parser
 #inityacc = open("yaccErrors.txt", "w")
@@ -192,7 +199,8 @@ parser = yacc.yacc()
 
 #parser = yacc.yacc()
 def analizadorSintactico(entrada):
-    yaccResult = str(parser.parse(entrada))
+    yaccResult = parser.parse(entrada, tracking=True)
+    #yaccResult = str(p)
     print(yaccResult)
     return yaccResult
 
@@ -208,9 +216,9 @@ while True:
     print(result)
     '''
 
-f=open("algoritmo.txt")
-s = f.read()
-print(s)
-result = parser.parse(s, tracking=True)
-print(result)
-f.close()
+#f=open("algoritmo.txt")
+#s = f.read()
+#print(s)
+result = parser.parse(data, tracking=True)
+print(lista)
+#f.close()

@@ -81,12 +81,29 @@ class MainWindow(QMainWindow):
             raw.close()
             self.resultText.setText(resultTextTmp)
 
+
+
     def onSyntButton(self):
         if (not self.isTextboxEmpty()):
             self.resultText.clear()
             textToProcess = self.textbox.toPlainText()
+            lista.clear();
             resultadoYac = analizadorSintactico(textToProcess)
-            self.resultText.setText(resultadoYac)
+            print(str(textToProcess)+"textp")
+            print(str(resultadoYac)+"resultadoy")
+            print(lista)
+            i=0
+            self.resultText.setText("")
+
+            for i in lista:
+
+                self.resultText.insertPlainText(i)
+
+
+
+
+
+
 
     def onSaveButton(self):
         saveFile = QFileDialog.getSaveFileName(None, "SaveTextFile", "/", "Text Files (*.txt)")
